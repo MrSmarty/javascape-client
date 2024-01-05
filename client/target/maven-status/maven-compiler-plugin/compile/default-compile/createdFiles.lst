@@ -1,0 +1,5 @@
+com/javascape/LoginWindow.class
+com/javascape/ClientGUI.class
+module-info.class
+com/javascape/Client.class
+com/javascape/User.class

@@ -37,11 +37,11 @@
             <version>13</version>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>org.panteleyev</groupId>
             <artifactId>jpackage-maven-plugin</artifactId>
             <version>1.6.0</version>
-        </dependency>
+        </dependency> -->
 
     </dependencies>
 

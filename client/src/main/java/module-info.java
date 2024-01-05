@@ -7,8 +7,8 @@ module com.javascape {
     requires transitive javafx.graphics;
 
     opens com.javascape to com.google.gson;
-    opens com.javascape.recievers to com.google.gson;
-    opens com.javascape.chronjob to com.google.gson;
+    //opens com.javascape.recievers to com.google.gson;
+    //opens com.javascape.chronjob to com.google.gson;
 
     //opens com.javascape.resources;
 
