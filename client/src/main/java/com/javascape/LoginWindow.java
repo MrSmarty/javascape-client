@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class LoginWindow {
 
     Stage primaryStage;
+    Client client;
 
     GridPane g;
 
@@ -37,8 +38,9 @@ public class LoginWindow {
     Button loginButton;
 
     /** Initializes the login window */
-    public LoginWindow(Stage primaryStage) {
+    public LoginWindow(Stage primaryStage, Client client) {
         this.primaryStage = primaryStage;
+        this.client = client;
     }
 
     /**
@@ -97,12 +99,35 @@ public class LoginWindow {
             PrintStream out = new PrintStream(socket.getOutputStream());
             
 
-            String input = in.readLine();
-            System.out.println(input);
+            String[] input = in.readLine().split(" ");
+            System.out.println(input[0]);
 
-            if (input.startsWith("getInfo")) {
-                out.println("client " + email + " " + password);
+            if (input[0].equals("getInfo")) {
+                out.println("info client " + email + " " + password);
                 out.flush();
+            }
+
+            input = in.readLine().split(" ");
+            System.out.println(input[1]);
+            if (input[0].equals("loginStatus")) {
+                if (input[1].equals("true")) {
+
+                    String temp = in.readLine();
+
+                    System.out.println(temp);
+
+                    client.loggedInUser = DataHandler.deserializeUser(temp);
+
+                    System.out.println("Logged in");
+                    
+                    primaryStage.hide();
+                    // ClientGUI gui = new ClientGUI(socket, email);
+                    // gui.show();
+                } else {
+                    System.out.println("Login failed");
+                }
+            } else {
+                System.out.println("Error logging in");
             }
 
         } catch (IOException e) {
