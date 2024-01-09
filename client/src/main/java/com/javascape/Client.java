@@ -38,8 +38,7 @@ public class Client extends Application {
 
     private void login() {
         System.out.println("Displaying login window");
-        LoginWindow loginWindow = new LoginWindow(primaryStage, this);
-        loginWindow.show();
+        new LoginWindow(primaryStage, this);
         primaryStage.show();
     }
 

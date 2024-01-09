@@ -41,6 +41,9 @@ public class LoginWindow {
     public LoginWindow(Stage primaryStage, Client client) {
         this.primaryStage = primaryStage;
         this.client = client;
+
+        primaryStage.setTitle("JavaScape Client - " + Settings.version);
+        primaryStage.setScene(setupLoginScreen());
     }
 
     /**
@@ -82,6 +85,8 @@ public class LoginWindow {
 
         Scene scene = new Scene(g, 600, 400);
 
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
         // Allows the user to press enter to login
         scene.setOnKeyPressed(e -> {
             if (e.getCode().toString().equals("ENTER"))
@@ -97,7 +102,6 @@ public class LoginWindow {
             Socket socket = new Socket(addressField.getText(), Integer.parseInt(portField.getText()));
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintStream out = new PrintStream(socket.getOutputStream());
-            
 
             String[] input = in.readLine().split(" ");
             System.out.println(input[0]);
@@ -112,6 +116,9 @@ public class LoginWindow {
             if (input[0].equals("loginStatus")) {
                 if (input[1].equals("true")) {
 
+                    out.println("getUserInfo " + email);
+                    out.flush();
+
                     String temp = in.readLine();
 
                     System.out.println(temp);
@@ -119,10 +126,9 @@ public class LoginWindow {
                     client.loggedInUser = DataHandler.deserializeUser(temp);
 
                     System.out.println("Logged in");
-                    
-                    primaryStage.hide();
-                    // ClientGUI gui = new ClientGUI(socket, email);
-                    // gui.show();
+
+                    client.startGui();
+
                 } else {
                     System.out.println("Login failed");
                 }
@@ -133,11 +139,6 @@ public class LoginWindow {
         } catch (IOException e) {
             System.out.println("Error connecting to server");
         }
-    }
-
-    /** Sets the primaryStage to the login screen */
-    public void show() {
-        primaryStage.setScene(setupLoginScreen());
     }
 
 }
