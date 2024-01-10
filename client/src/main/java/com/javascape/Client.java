@@ -13,7 +13,9 @@ public class Client extends Application {
 
     private static ClientGUI gui;
 
-    public User loggedInUser;
+    private ClientThread thread;
+
+    public static User loggedInUser;
 
     public static void main(String[] args) {
         launch();
@@ -42,9 +44,22 @@ public class Client extends Application {
         primaryStage.show();
     }
 
+    public void startClientThread(ClientThread thread) {
+        this.thread = thread;
+        Thread.ofVirtual().start(thread);
+    }
+
+    public ClientThread getThread() {
+        return thread;
+    
+    }
+
     public void startGui() {
-        gui = new ClientGUI();
-        //gui.show();
+        gui = new ClientGUI(primaryStage, this);
+    }
+
+    public void quit() {
+        thread.quit();
     }
 
 }

@@ -125,9 +125,11 @@ public class LoginWindow {
 
                     client.loggedInUser = DataHandler.deserializeUser(temp);
 
+                    client.startClientThread(new ClientThread(socket, in, out));
+
                     System.out.println("Logged in");
 
-                    client.startGui();
+                    client.loggedIn();
 
                 } else {
                     System.out.println("Login failed");

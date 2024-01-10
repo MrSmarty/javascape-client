@@ -6,7 +6,7 @@ public class Settings {
     public static String version = "a0.0.1";
 
     /** Boolean that determines whether or not to display the terminal */
-    public static boolean showTerminal = true;
+    public static boolean showTerminal = false;
 
     /** Boolean that determines if the Logger is enabled */
     public static boolean loggerEnabled = true;
