@@ -1,79 +1,105 @@
-// package com.javascape.menuPopups;
+package com.javascape.menuPopups;
 
-// import com.javascape.Server;
-// import com.javascape.User;
-// import javafx.scene.Scene;
-// import javafx.scene.control.Button;
-// import javafx.scene.control.CheckBox;
-// import javafx.scene.control.ChoiceBox;
-// import javafx.scene.control.Label;
-// import javafx.scene.control.TextField;
-// import javafx.scene.layout.GridPane;
-// import javafx.stage.Stage;
+import com.javascape.Permissions;
 
-// public class EditUserPopup {
-//     public EditUserPopup() {
+import java.util.ArrayList;
 
-//         Stage popupStage = new Stage();
-//         popupStage.setTitle("Edit User");
+import com.javascape.Client;
+import com.javascape.DataHandler;
+import com.javascape.User;
 
-//         GridPane g = new GridPane();
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
-//         ChoiceBox<User> dropdown = new ChoiceBox<User>(Server.getDataHandler().getUserHandler().getAllUsers());
+public class EditUserPopup {
+    public EditUserPopup(Client client) {
 
-//         Label usernameLabel = new Label("Username:");
-//         TextField usernameField = new TextField();
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Edit User");
 
-//         Label passwordLabel = new Label("Password:");
-//         TextField passwordField = new TextField();
+        GridPane g = new GridPane();
 
-//         Label emailLabel = new Label("Email:");
-//         TextField emailField = new TextField();
+        ChoiceBox<User> dropdown = new ChoiceBox<User>();
+        ObservableList<User> userList = (ObservableList<User>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getUserList"));
 
-//         Label adminLabel = new Label("Admin:");
-//         CheckBox adminBox = new CheckBox();
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getPermissionsLevel() <= Client.loggedInUser.getPermissionsLevel()) {
+                userList.remove(i);
+            }
+        }
 
-//         Button save = new Button("Save");
+        dropdown.getItems().addAll(userList);
 
-//         Button cancel = new Button("Cancel");
+        Label usernameLabel = new Label("Username:");
+        TextField usernameField = new TextField();
 
-//         save.setOnAction(e -> {
-//             User u = dropdown.getValue();
-//             u.setUsername(usernameField.textProperty().getValue());
-//             u.setPassword(passwordField.textProperty().getValue());
-//             u.setEmail(emailField.textProperty().getValue());
-//             u.setAdmin(adminBox.selectedProperty().getValue());
-//             popupStage.close();
-//         });
+        Label passwordLabel = new Label("Password:");
+        TextField passwordField = new TextField();
 
-//         cancel.setOnAction(e -> {
-//             popupStage.close();
-//         });
+        Label emailLabel = new Label("Email:");
+        TextField emailField = new TextField();
 
-//         dropdown.setOnAction(e -> {
-//             usernameField.textProperty().set(dropdown.getValue().getUsername());
-//             passwordField.textProperty().set(dropdown.getValue().getPassword());
-//             emailField.textProperty().set(dropdown.getValue().getEmail());
-//             adminBox.selectedProperty().set(dropdown.getValue().isAdmin());
-//         });
+        Label adminLabel = new Label("Permissions level:");
 
-//         g.add(dropdown, 0, 0, 2, 1);
-//         g.add(usernameLabel, 0, 1);
-//         g.add (usernameField, 1, 1);
-//         g.add(passwordLabel, 0, 2);
-//         g.add(passwordField, 1, 2);
-//         g.add(emailLabel, 0, 3);
-//         g.add(emailField, 1, 3);
-//         g.add(adminLabel, 0, 4);
-//         g.add(adminBox, 1, 4);
-//         g.add(save, 0, 5);
-//         g.add(cancel, 1, 5);
-
-//         Scene scene = new Scene(g);
-//         scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
+        ArrayList<String> temp = Permissions.getPermissionsList();
+        
+        for (String s : temp) {
+            if (Permissions.toInt(s) >= Client.loggedInUser.getPermissionsLevel()) {
+                adminDropdown.getItems().add(s);
+            }
+        }
 
 
-//         popupStage.setScene(scene);
-//         popupStage.show();
-//     }
-// }
+        Button save = new Button("Save");
+
+        Button cancel = new Button("Cancel");
+
+        save.setOnAction(e -> {
+            User u = dropdown.getValue();
+            u.setUsername(usernameField.textProperty().getValue());
+            u.setPassword(passwordField.textProperty().getValue());
+            u.setEmail(emailField.textProperty().getValue());
+            u.setPermissions(Permissions.toInt(adminDropdown.getValue()));
+            client.getThread().addCommand("editUser " + u.getEmail() + " " + DataHandler.serializeUser(u));
+            popupStage.close();
+        });
+
+        cancel.setOnAction(e -> {
+            popupStage.close();
+        });
+
+        dropdown.setOnAction(e -> {
+            usernameField.textProperty().set(dropdown.getValue().getUsername());
+            passwordField.textProperty().set(dropdown.getValue().getPassword());
+            emailField.textProperty().set(dropdown.getValue().getEmail());
+            adminDropdown.valueProperty().set(Permissions.toString(dropdown.getValue().getPermissionsLevel()));
+        });
+
+        g.add(dropdown, 0, 0, 2, 1);
+        g.add(usernameLabel, 0, 1);
+        g.add (usernameField, 1, 1);
+        g.add(passwordLabel, 0, 2);
+        g.add(passwordField, 1, 2);
+        g.add(emailLabel, 0, 3);
+        g.add(emailField, 1, 3);
+        g.add(adminLabel, 0, 4);
+        g.add(adminDropdown, 1, 4);
+        g.add(save, 0, 5);
+        g.add(cancel, 1, 5);
+
+        Scene scene = new Scene(g);
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
+
+        popupStage.setScene(scene);
+        popupStage.show();
+    }
+}

@@ -123,7 +123,7 @@ public class LoginWindow {
 
                     System.out.println(temp);
 
-                    client.loggedInUser = DataHandler.deserializeUser(temp);
+                    Client.loggedInUser = DataHandler.deserializeUser(temp);
 
                     client.startClientThread(new ClientThread(socket, in, out));
 

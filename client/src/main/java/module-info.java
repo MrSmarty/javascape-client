@@ -14,8 +14,8 @@ module com.javascape {
 
     exports com.javascape;
     // exports com.javascape.chronjob;
-    // exports com.javascape.recievers;
+    exports com.javascape.recievers;
     // exports com.javascape.gsonDeserializers;
     // exports com.javascape.menuPopups;
-    // exports com.javascape.sensors;
+    exports com.javascape.sensors;
 }

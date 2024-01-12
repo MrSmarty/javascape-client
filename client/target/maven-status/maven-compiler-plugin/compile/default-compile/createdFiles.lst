@@ -4,6 +4,7 @@ com/javascape/Logger$1.class
 com/javascape/sensors/CapacitiveV2$1.class
 com/javascape/sensors/KeyesPhotoresistorAnalog$2.class
 com/javascape/User.class
+com/javascape/Permissions.class
 com/javascape/menuPopups/CreateNewUserPopup.class
 com/javascape/ClientGUI.class
 com/javascape/menuPopups/AddSensorPopup.class
@@ -17,6 +18,7 @@ com/javascape/recievers/PicoW.class
 com/javascape/DataHandler.class
 com/javascape/gsonDeserializers/ObservableListDeserializer.class
 com/javascape/recievers/PicoW$3.class
+com/javascape/menuPopups/EditUserPopup.class
 com/javascape/sensors/CapacitiveV2$2.class
 com/javascape/LoginWindow.class
 com/javascape/menuPopups/SettingsPopup.class
@@ -28,4 +30,5 @@ com/javascape/recievers/Reciever.class
 com/javascape/Logger$2.class
 com/javascape/sensors/KeyesPhotoresistorAnalog.class
 com/javascape/sensors/CapacitiveV2.class
+com/javascape/menuPopups/DeleteUserPopup.class
 com/javascape/Settings.class

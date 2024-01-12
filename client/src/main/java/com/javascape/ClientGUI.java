@@ -1,7 +1,6 @@
 package com.javascape;
 
-import com.javascape.menuPopups.CreateNewUserPopup;
-import com.javascape.menuPopups.SettingsPopup;
+import com.javascape.menuPopups.*;
 
 //import com.javascape.menuPopups.*;
 import javafx.application.Platform;
@@ -159,17 +158,15 @@ public class ClientGUI {
         });
 
         editUser.setOnAction(e -> {
-            // new EditUserPopup();
+            new EditUserPopup(client);
         });
 
         deleteUser.setOnAction(e -> {
-            // new DeleteUserPopup(server);
+            new DeleteUserPopup(client);
         });
 
-        if (Client.loggedInUser.isAdmin())
+        if (Client.loggedInUser.getPermissionsLevel()<=Permissions.HOUSEHOLD_HEAD)
             users.getItems().addAll(createUser, editUser, deleteUser);
-        else
-            users.getItems().addAll(createUser);
 
         Menu households = new Menu("Households");
 
@@ -179,7 +176,7 @@ public class ClientGUI {
             // new CreateNewHouseholdPopup();
         });
 
-        if (Client.loggedInUser.isAdmin())
+        if (Client.loggedInUser.getPermissionsLevel()<=Permissions.ADMIN)
             households.getItems().addAll(createHousehold);
 
         Menu chronjobs = new Menu("Chronjobs");

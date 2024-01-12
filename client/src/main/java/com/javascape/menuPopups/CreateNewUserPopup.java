@@ -1,11 +1,15 @@
 package com.javascape.menuPopups;
 
+import java.util.ArrayList;
+
 import com.javascape.Client;
 import com.javascape.ClientThread;
-import com.javascape.User;
+import com.javascape.Permissions;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -29,10 +33,14 @@ public class CreateNewUserPopup {
         Label emailLabel = new Label("Email:");
         TextField emailField = new TextField();
 
-        Label adminLabel = new Label("Admin:");
-        CheckBox adminCheckBox = new CheckBox();
-        if (!Client.loggedInUser.isAdmin()) {
-            adminCheckBox.disableProperty().setValue(true);
+        Label adminLabel = new Label("Permissions Level:");
+        ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
+        ArrayList<String> temp = Permissions.getPermissionsList();
+        
+        for (String s : temp) {
+            if (Permissions.toInt(s) >= Client.loggedInUser.getPermissionsLevel()) {
+                adminDropdown.getItems().add(s);
+            }
         }
 
         Button submit = new Button("Done");
@@ -42,7 +50,7 @@ public class CreateNewUserPopup {
                     && emailField.textProperty().getValue() != "") {
                 if (thread.awaitResponse(String.format("createUser %s %s %s %s",
                         usernameField.textProperty().getValue(), passwordField.textProperty().getValue(),
-                        adminCheckBox.selectedProperty().get(), emailField.textProperty().getValue())).equals("true")) {
+                        Permissions.toInt(adminDropdown.getValue()), emailField.textProperty().getValue())).equals("true")) {
 
                     popupStage.close();
                 } else {
@@ -67,7 +75,7 @@ public class CreateNewUserPopup {
         g.add(emailLabel, 0, 2);
         g.add(emailField, 1, 2);
         g.add(adminLabel, 0, 3);
-        g.add(adminCheckBox, 1, 3);
+        g.add(adminDropdown, 1, 3);
         g.add(submit, 0, 4);
         g.add(cancel, 1, 5);
 

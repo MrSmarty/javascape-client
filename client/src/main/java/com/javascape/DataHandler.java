@@ -32,4 +32,8 @@ public class DataHandler {
     public static String serializeReciever(Reciever reciever) {
         return gson.toJson(reciever).replaceAll("\n", "");
     }
+
+    public static ObservableList<?> deserializeObservable(String json) {
+        return gson.fromJson(json, ObservableList.class);
+    }
 }
