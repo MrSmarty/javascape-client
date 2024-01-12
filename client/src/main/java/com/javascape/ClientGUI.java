@@ -29,7 +29,7 @@ public class ClientGUI {
     /** The main scene */
     BorderPane mainPane;
 
-    // static RecieverView recieverView;
+    // static ReceiverView receiverView;
 
     /** A reference to the terminal */
     static ListView<Text> terminalListView = new ListView<Text>();;
@@ -65,9 +65,9 @@ public class ClientGUI {
 
         mainPane.setLeft(sideMenu());
 
-        // recieverView = new RecieverView();
+        // receiverView = new ReceiverView();
 
-        // mainPane.setCenter(recieverView.getRecieverView());
+        // mainPane.setCenter(receiverView.getReceiverView());
 
         if (Settings.showTerminal)
             mainPane.setBottom(getTerminalElement());
@@ -93,7 +93,7 @@ public class ClientGUI {
         name.setStyle("-fx-color: #222222;");
         Button homeButton = new Button("Home");
         homeButton.setOnAction(e -> {
-            // mainPane.setCenter(recieverView.getRecieverView());
+            // mainPane.setCenter(receiverView.getReceiverView());
         });
 
         // ADD PROFILE IMAGW BACK TO THE FRONT
@@ -165,7 +165,7 @@ public class ClientGUI {
             new DeleteUserPopup(client);
         });
 
-        if (Client.loggedInUser.getPermissionsLevel()<=Permissions.HOUSEHOLD_HEAD)
+        if (Client.loggedInUser.getPermissionsLevel() <= Permissions.HOUSEHOLD_HEAD)
             users.getItems().addAll(createUser, editUser, deleteUser);
 
         Menu households = new Menu("Households");
@@ -176,7 +176,7 @@ public class ClientGUI {
             // new CreateNewHouseholdPopup();
         });
 
-        if (Client.loggedInUser.getPermissionsLevel()<=Permissions.ADMIN)
+        if (Client.loggedInUser.getPermissionsLevel() <= Permissions.ADMIN)
             households.getItems().addAll(createHousehold);
 
         Menu chronjobs = new Menu("Chronjobs");
@@ -232,8 +232,8 @@ public class ClientGUI {
         terminalListView.getItems().clear();
     }
 
-    // public RecieverView getRecieverView() {
-    // return recieverView;
+    // public ReceiverView getReceiverView() {
+    // return receiverView;
     // }
 
 }

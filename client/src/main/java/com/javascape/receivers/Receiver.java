@@ -1,4 +1,4 @@
-package com.javascape.recievers;
+package com.javascape.receivers;
 
 import com.javascape.sensors.Sensor;
 import javafx.collections.FXCollections;
@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public abstract class Reciever {
+public abstract class Receiver {
     protected String uid;
     protected String name;
     protected String type;
@@ -15,13 +15,13 @@ public abstract class Reciever {
     transient protected Label tempLabel;
     transient protected ObservableList<Double> internalTemps;
 
-    public Reciever(String ID) {
+    public Receiver(String ID) {
         internalTemps = FXCollections.<Double>observableArrayList();
         this.uid = ID;
-        name = "Reciever";
+        name = "Receiver";
     };
 
-    public Reciever(String ID, String name, String type) {
+    public Receiver(String ID, String name, String type) {
         internalTemps = FXCollections.<Double>observableArrayList();
         this.uid = ID;
         this.name = name;
@@ -45,9 +45,7 @@ public abstract class Reciever {
         return getName();
     }
 
-
-
-    public abstract GridPane getRecieverPane();
+    public abstract GridPane getReceiverPane();
 
     public abstract int[] getValues();
 

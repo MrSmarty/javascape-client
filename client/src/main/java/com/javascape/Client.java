@@ -11,7 +11,7 @@ public class Client extends Application {
 
     Stage primaryStage;
 
-    private static ClientGUI gui;
+    //private static ClientGUI gui;
 
     private ClientThread thread;
 
@@ -55,7 +55,8 @@ public class Client extends Application {
     }
 
     public void startGui() {
-        gui = new ClientGUI(primaryStage, this);
+        //gui = new ClientGUI(primaryStage, this);
+        new ClientGUI(primaryStage, this);
     }
 
     public void quit() {

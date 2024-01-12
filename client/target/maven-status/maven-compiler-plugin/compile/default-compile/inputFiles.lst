@@ -1,4 +1,4 @@
-/Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/recievers/PicoW.java
+/Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/receivers/PicoW.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/DataHandler.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/module-info.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/Settings.java
@@ -16,7 +16,7 @@
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/gsonDeserializers/SensorDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/sensors/CapacitiveV2.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/LoginWindow.java
-/Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/recievers/Reciever.java
+/Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/receivers/Receiver.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/Permissions.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/menuPopups/DeleteUserPopup.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/menuPopups/CreateNewHouseholdPopup.java

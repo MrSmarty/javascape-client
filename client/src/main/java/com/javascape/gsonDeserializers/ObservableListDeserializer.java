@@ -40,7 +40,7 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
             if (jsonElement.getAsJsonObject().has("email")) {
                 list.add(context.deserialize(jsonElement, User.class));
             } else if (jsonElement.getAsJsonObject().has("householdName")) {
-                //list.add(context.deserialize(jsonElement, Household.class));
+                // list.add(context.deserialize(jsonElement, Household.class));
             } else if (jsonElement.getAsJsonObject().has("type")) {
                 try {
                     String s = jsonElement.getAsJsonObject().get("type").toString();
@@ -52,27 +52,27 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
                 }
 
             } else if (jsonElement.getAsJsonObject().has("conditions")) {
-                //list.add(context.deserialize(jsonElement, ConditionalJob.class));
+                // list.add(context.deserialize(jsonElement, ConditionalJob.class));
 
             } else if (jsonElement.getAsJsonObject().has("commands")) {
-                //list.add(context.deserialize(jsonElement, Chronjob.class));
+                // list.add(context.deserialize(jsonElement, Chronjob.class));
             }
         }
 
         return list;
     }
 
-    /** Pull the classes from the recievers file */
+    /** Pull the classes from the receivers file */
     private void getClasses() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "recievers.map"));
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.map"));
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "com.javascape.recievers." + item[1]);
+                classMap.put(item[0], "com.javascape.receivers." + item[1]);
             }
         } catch (IOException e) {
-            // Logger.error("Error trying to fetch recievers from reciever map");
+            // Logger.error("Error trying to fetch receivers from receiver map");
         }
 
     }

@@ -11,7 +11,6 @@ import com.javascape.User;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,7 +26,8 @@ public class EditUserPopup {
         GridPane g = new GridPane();
 
         ChoiceBox<User> dropdown = new ChoiceBox<User>();
-        ObservableList<User> userList = (ObservableList<User>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getUserList"));
+        ObservableList<User> userList = (ObservableList<User>) DataHandler
+                .deserializeObservable(client.getThread().awaitResponse("getUserList"));
 
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getPermissionsLevel() <= Client.loggedInUser.getPermissionsLevel()) {
@@ -50,26 +50,33 @@ public class EditUserPopup {
 
         ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
         ArrayList<String> temp = Permissions.getPermissionsList();
-        
+
         for (String s : temp) {
             if (Permissions.toInt(s) >= Client.loggedInUser.getPermissionsLevel()) {
                 adminDropdown.getItems().add(s);
             }
         }
 
-
         Button save = new Button("Save");
 
         Button cancel = new Button("Cancel");
 
         save.setOnAction(e -> {
+
             User u = dropdown.getValue();
-            u.setUsername(usernameField.textProperty().getValue());
-            u.setPassword(passwordField.textProperty().getValue());
-            u.setEmail(emailField.textProperty().getValue());
-            u.setPermissions(Permissions.toInt(adminDropdown.getValue()));
-            client.getThread().addCommand("editUser " + u.getEmail() + " " + DataHandler.serializeUser(u));
-            popupStage.close();
+
+            if (client.getThread()
+                    .awaitResponse(String.format("editUser %s %s %s %s %s", u.getEmail(),
+                            usernameField.textProperty().getValue(),
+                            passwordField.textProperty().getValue(), Permissions.toInt(adminDropdown.getValue()),
+                            emailField.textProperty().getValue()))
+                    .equals("true")) {
+                u.setUsername(usernameField.textProperty().getValue());
+                u.setPassword(passwordField.textProperty().getValue());
+                u.setEmail(emailField.textProperty().getValue());
+                u.setPermissions(Permissions.toInt(adminDropdown.getValue()));
+                popupStage.close();
+            }
         });
 
         cancel.setOnAction(e -> {
@@ -85,7 +92,7 @@ public class EditUserPopup {
 
         g.add(dropdown, 0, 0, 2, 1);
         g.add(usernameLabel, 0, 1);
-        g.add (usernameField, 1, 1);
+        g.add(usernameField, 1, 1);
         g.add(passwordLabel, 0, 2);
         g.add(passwordField, 1, 2);
         g.add(emailLabel, 0, 3);
@@ -97,7 +104,6 @@ public class EditUserPopup {
 
         Scene scene = new Scene(g);
         scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
 
         popupStage.setScene(scene);
         popupStage.show();

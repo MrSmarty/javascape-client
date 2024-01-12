@@ -3,7 +3,7 @@ package com.javascape;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.javascape.gsonDeserializers.*;
-import com.javascape.recievers.*;
+import com.javascape.receivers.*;
 import com.javascape.sensors.Sensor;
 
 import javafx.collections.ObservableList;
@@ -25,12 +25,12 @@ public class DataHandler {
         return gson.toJson(user).replaceAll("\n", "");
     }
 
-    public static Reciever deserializeReciever(String json) {
-        return gson.fromJson(json, Reciever.class);
+    public static Receiver deserializeReceiver(String json) {
+        return gson.fromJson(json, Receiver.class);
     }
 
-    public static String serializeReciever(Reciever reciever) {
-        return gson.toJson(reciever).replaceAll("\n", "");
+    public static String serializeReceiver(Receiver receiver) {
+        return gson.toJson(receiver).replaceAll("\n", "");
     }
 
     public static ObservableList<?> deserializeObservable(String json) {
