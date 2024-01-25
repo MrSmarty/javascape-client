@@ -188,7 +188,7 @@ public class ClientGUI {
         MenuItem deleteChronjob = new MenuItem("Delete Chronjob");
 
         createChronjob.setOnAction(e -> {
-            // new NewChronjobPopup();
+            new NewChronjobPopup(client);
         });
 
         createConditional.setOnAction(e -> {
@@ -196,7 +196,7 @@ public class ClientGUI {
         });
 
         deleteChronjob.setOnAction(e -> {
-            // new DeleteChronjobPopup();
+            new DeleteChronjobPopup(client);
         });
 
         chronjobs.getItems().addAll(createChronjob, createConditional, deleteChronjob);

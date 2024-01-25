@@ -1,47 +1,49 @@
-// package com.javascape.menuPopups;
+package com.javascape.menuPopups;
 
-// import com.javascape.Client;
-// import com.javascape.chronjob.Chronjob;
-// import javafx.collections.ObservableList;
-// import javafx.scene.Scene;
-// import javafx.scene.control.Button;
-// import javafx.scene.control.ChoiceBox;
-// import javafx.scene.layout.GridPane;
-// import javafx.stage.Stage;
+import com.javascape.Client;
+import com.javascape.DataHandler;
+import com.javascape.chronjob.Job;
 
-// public class DeleteChronjobPopup {
-//     public DeleteChronjobPopup() {
-//         Stage stage = new Stage();
-//         stage.setTitle("Delete Chronjob");
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
-//         GridPane g = new GridPane();
+public class DeleteChronjobPopup {
+    public DeleteChronjobPopup(Client client) {
+        Stage stage = new Stage();
+        stage.setTitle("Delete Chronjob");
 
-//         ObservableList<Chronjob> chronList = Server.getDataHandler().getChronManager().getRepeatingChronjobs();
+        GridPane g = new GridPane();
 
-//         ChoiceBox<Chronjob> dropdown = new ChoiceBox<Chronjob>(chronList);
+        ObservableList<Job> chronList = (ObservableList<Job>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getChronjobList"));
 
-
-//         Button delete = new Button("Delete Chronjob");
-//         Button close = new Button("Close");
-
-//         delete.setOnAction(e -> {
-//             Server.getDataHandler().getChronManager().remove(dropdown.getValue());
-//             stage.close();
-//         });
-
-//         close.setOnAction(e -> {
-//             stage.close();
-//         });
+        ChoiceBox<Job> dropdown = new ChoiceBox<Job>(chronList);
 
 
-//         g.add(dropdown, 0, 0, 1, 1);
-//         g.add(delete, 0, 1);
-//         g.add(close, 1, 1);
+        Button delete = new Button("Delete Chronjob");
+        Button close = new Button("Close");
 
-//         Scene scene = new Scene(g);
-//         scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        delete.setOnAction(e -> {
+            client.getThread().awaitResponse("deleteChronjob " + DataHandler.serializeJob(dropdown.getValue()));
+            stage.close();
+        });
 
-//         stage.setScene(scene);
-//         stage.show();
-//     }
-// }
+        close.setOnAction(e -> {
+            stage.close();
+        });
+
+
+        g.add(dropdown, 0, 0, 1, 1);
+        g.add(delete, 0, 1);
+        g.add(close, 1, 1);
+
+        Scene scene = new Scene(g);
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.show();
+    }
+}

@@ -24,11 +24,11 @@ import javafx.scene.layout.VBox;
 public class PicoW extends Receiver {
 
     transient private ClientThread thread;
-    private int[] values = new int[26];
+    transient private int[] values = new int[26];
 
     transient private CheckBox[] checkBoxes;
 
-    private boolean gpioExpanded = false, sensorExpanded = false;
+    public boolean gpioExpanded = false, sensorExpanded = false;
 
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");

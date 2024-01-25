@@ -13,6 +13,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 import com.javascape.User;
+import com.javascape.chronjob.Chronjob;
+import com.javascape.chronjob.ConditionalJob;
 //import com.javascape.chronjob.Chronjob;
 //import com.javascape.chronjob.ConditionalJob;
 //import com.javascape.Household;
@@ -52,10 +54,10 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
                 }
 
             } else if (jsonElement.getAsJsonObject().has("conditions")) {
-                // list.add(context.deserialize(jsonElement, ConditionalJob.class));
+                list.add(context.deserialize(jsonElement, ConditionalJob.class));
 
             } else if (jsonElement.getAsJsonObject().has("commands")) {
-                // list.add(context.deserialize(jsonElement, Chronjob.class));
+                list.add(context.deserialize(jsonElement, Chronjob.class));
             }
         }
 

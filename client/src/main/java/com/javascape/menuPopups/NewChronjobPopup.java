@@ -1,168 +1,169 @@
-// package com.javascape.menuPopups;
+package com.javascape.menuPopups;
 
-// import java.util.ArrayList;
-// import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
-// import com.javascape.Server;
-// import com.javascape.chronjob.Chronjob;
-// import com.javascape.chronjob.ChronManager;
-// import com.javascape.chronjob.ChronjobItem;
-// import com.javascape.receivers.Receiver;
-// import javafx.collections.FXCollections;
-// import javafx.collections.ObservableList;
-// import javafx.scene.Scene;
-// import javafx.scene.control.Button;
-// import javafx.scene.control.ChoiceBox;
-// import javafx.scene.control.Label;
-// import javafx.scene.control.TextField;
-// import javafx.scene.layout.GridPane;
-// import javafx.scene.layout.HBox;
-// import javafx.scene.layout.VBox;
-// import javafx.stage.Stage;
+import com.javascape.DataHandler;
+import com.javascape.Client;
+import com.javascape.chronjob.Chronjob;
+import com.javascape.chronjob.ChronManager;
+import com.javascape.chronjob.ChronjobItem;
+import com.javascape.receivers.Receiver;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-// public class NewChronjobPopup {
-// private ObservableList<String> observableCommands =
-// FXCollections.observableArrayList();
+public class NewChronjobPopup {
+    private ObservableList<String> observableCommands = FXCollections.observableArrayList();
 
-// private ChronManager manager = Server.getDataHandler().getChronManager();
+    private ChronManager manager = DataHandler.getChronManager();
 
-// public NewChronjobPopup() {
-// Stage stage = new Stage();
-// stage.setTitle("Create New Chronjob");
+    private Client client;
 
-// GridPane g = new GridPane();
+    public NewChronjobPopup(Client client) {
+        this.client = client;
+        Stage stage = new Stage();
+        stage.setTitle("Create New Chronjob");
 
-// Label nameLabel = new Label("Name:");
-// TextField nameField = new TextField();
+        GridPane g = new GridPane();
 
-// Label periodLabel = new Label("Period:");
-// TextField periodField = new TextField();
+        Label nameLabel = new Label("Name:");
+        TextField nameField = new TextField();
 
-// ObservableList<TimeUnit> timeUnitList = FXCollections.observableArrayList();
-// timeUnitList.addAll(TimeUnit.values());
+        Label periodLabel = new Label("Period:");
+        TextField periodField = new TextField();
 
-// ChoiceBox<TimeUnit> timeUnits = new ChoiceBox<TimeUnit>(timeUnitList);
-// timeUnits.valueProperty().set(TimeUnit.MINUTES);
+        ObservableList<TimeUnit> timeUnitList = FXCollections.observableArrayList();
+        timeUnitList.addAll(TimeUnit.values());
 
-// VBox commandBox = new VBox();
-// HBox commandBoxHeader = new HBox();
+        ChoiceBox<TimeUnit> timeUnits = new ChoiceBox<TimeUnit>(timeUnitList);
+        timeUnits.valueProperty().set(TimeUnit.MINUTES);
 
-// Button newCommand = new Button("New Command");
-// newCommand.setOnAction(e -> {
-// addCommand();
-// });
-// commandBoxHeader.getChildren().addAll(new Label("Commands:"), newCommand);
+        VBox commandBox = new VBox();
+        HBox commandBoxHeader = new HBox();
 
-// commandBox.getChildren().add(commandBoxHeader);
+        Button newCommand = new Button("New Command");
+        newCommand.setOnAction(e -> {
+            addCommand();
+        });
+        commandBoxHeader.getChildren().addAll(new Label("Commands:"), newCommand);
 
-// observableCommands.addListener((javafx.beans.Observable observable) -> {
-// commandBox.getChildren().clear();
-// commandBox.getChildren().add(commandBoxHeader);
-// for (String command : observableCommands) {
-// HBox temp = new HBox();
+        commandBox.getChildren().add(commandBoxHeader);
 
-// Button delete = new Button();
-// delete.getStyleClass().add("deleteButton");
+        observableCommands.addListener((javafx.beans.Observable observable) -> {
+            commandBox.getChildren().clear();
+            commandBox.getChildren().add(commandBoxHeader);
+            for (String command : observableCommands) {
+                HBox temp = new HBox();
 
-// delete.setOnAction(e -> {
-// observableCommands.remove(command);
-// });
-// temp.getChildren().addAll(new Label(command), delete);
-// commandBox.getChildren().addAll(temp);
-// }
-// stage.sizeToScene();
-// });
+                Button delete = new Button();
+                delete.getStyleClass().add("deleteButton");
 
-// g.add(nameLabel, 0, 0);
-// g.add(nameField, 1, 0);
-// g.add(periodLabel, 0, 1);
-// g.add(periodField, 1, 1);
-// g.add(timeUnits, 2, 1);
-// g.add(commandBox, 0, 2);
+                delete.setOnAction(e -> {
+                    observableCommands.remove(command);
+                });
+                temp.getChildren().addAll(new Label(command), delete);
+                commandBox.getChildren().addAll(temp);
+            }
+            stage.sizeToScene();
+        });
 
-// Button create = new Button("Create Chronjob");
-// Button cancel = new Button("Cancel");
+        g.add(nameLabel, 0, 0);
+        g.add(nameField, 1, 0);
+        g.add(periodLabel, 0, 1);
+        g.add(periodField, 1, 1);
+        g.add(timeUnits, 2, 1);
+        g.add(commandBox, 0, 2);
 
-// g.add(create, 0, 5);
-// g.add(cancel, 1, 5);
+        Button create = new Button("Create Chronjob");
+        Button cancel = new Button("Cancel");
 
-// cancel.setOnAction(e -> {
-// stage.close();
-// });
+        g.add(create, 0, 5);
+        g.add(cancel, 1, 5);
 
-// create.setOnAction(e -> {
-// ArrayList<String> commands = new ArrayList<String>(observableCommands);
+        cancel.setOnAction(e -> {
+            stage.close();
+        });
 
-// Chronjob job = new Chronjob(nameField.textProperty().getValue(), commands,
-// Integer.parseInt(periodField.textProperty().getValue()),
-// timeUnits.getValue());
-// manager.newRepeating(job);
-// stage.close();
-// });
+        create.setOnAction(e -> {
+            ArrayList<String> commands = new ArrayList<String>(observableCommands);
 
-// Scene scene = new Scene(g);
-// scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
-// scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+            Chronjob job = new Chronjob(nameField.textProperty().getValue(), commands,
+                    Integer.parseInt(periodField.textProperty().getValue()), timeUnits.getValue());
+            manager.newRepeating(job);
+            stage.close();
+        });
 
-// stage.setScene(scene);
+        Scene scene = new Scene(g);
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
 
-// stage.show();
-// }
+        stage.setScene(scene);
 
-// public void addCommand() {
-// Stage stage = new Stage();
+        stage.show();
+    }
 
-// GridPane g = new GridPane();
+    public void addCommand() {
+        Stage stage = new Stage();
 
-// ChoiceBox<ChronjobItem> setType = new ChoiceBox<ChronjobItem>();
-// setType.getItems().addAll(manager.getAllItems());
-// setType.valueProperty().set(setType.getItems().get(0));
+        GridPane g = new GridPane();
 
-// Label infoLabel = new Label();
-// TextField valueField = new TextField();
-// Label infoLabelAfter = new Label();
+        ChoiceBox<ChronjobItem> setType = new ChoiceBox<ChronjobItem>();
+        setType.getItems().addAll(manager.getAllItems());
+        setType.valueProperty().set(setType.getItems().get(0));
 
-// setType.setOnAction(e -> {
-// infoLabel.textProperty().setValue(setType.getValue().getLabel());
-// infoLabelAfter.textProperty().setValue(setType.getValue().getAfterLabel());
-// });
+        Label infoLabel = new Label();
+        TextField valueField = new TextField();
+        Label infoLabelAfter = new Label();
 
-// Label receiverLabel = new Label("Receiver");
-// ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
+        setType.setOnAction(e -> {
+            infoLabel.textProperty().setValue(setType.getValue().getLabel());
+            infoLabelAfter.textProperty().setValue(setType.getValue().getAfterLabel());
+        });
 
-// receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
-// receiverBox.valueProperty().set(receiverBox.getItems().get(0));
+        Label receiverLabel = new Label("Receiver");
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
-// g.add(setType, 0, 0);
-// g.add(infoLabel, 0, 1);
-// g.add(valueField, 1, 1);
-// g.add(infoLabelAfter, 2, 1);
-// g.add(receiverLabel, 0, 2);
-// g.add(receiverBox, 1, 2);
+        receiverBox.getItems().addAll((ObservableList<Receiver>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getReceiverList")));
+        receiverBox.valueProperty().set(receiverBox.getItems().get(0));
 
-// Button add = new Button("Add");
-// add.setOnAction(e -> {
-// String command =
-// setType.getValue().getCommand(valueField.textProperty().getValue()) + " - "
-// + receiverBox.valueProperty().get().getUID();
-// observableCommands.add(command);
-// stage.close();
-// });
+        g.add(setType, 0, 0);
+        g.add(infoLabel, 0, 1);
+        g.add(valueField, 1, 1);
+        g.add(infoLabelAfter, 2, 1);
+        g.add(receiverLabel, 0, 2);
+        g.add(receiverBox, 1, 2);
 
-// Button cancel = new Button("Cancel");
-// cancel.setOnAction(e -> {
-// stage.close();
-// });
+        Button add = new Button("Add");
+        add.setOnAction(e -> {
+            String command = setType.getValue().getCommand(valueField.textProperty().getValue()) + " - "
+                    + receiverBox.valueProperty().get().getUID();
+            observableCommands.add(command);
+            stage.close();
+        });
 
-// g.add(add, 0, 3);
-// g.add(cancel, 1, 3);
+        Button cancel = new Button("Cancel");
+        cancel.setOnAction(e -> {
+            stage.close();
+        });
 
-// Scene s = new Scene(g);
-// s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        g.add(add, 0, 3);
+        g.add(cancel, 1, 3);
 
-// stage.setScene(s);
+        Scene s = new Scene(g);
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
 
-// stage.show();
+        stage.setScene(s);
 
-// }
-// }
+        stage.show();
+
+    }
+}

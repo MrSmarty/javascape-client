@@ -7,11 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public abstract class Receiver {
-    protected String uid;
-    protected String name;
-    protected String type;
-    protected int householdID;
-    protected Sensor[] sensors;
+    public String uid;
+    public String name;
+    public String type;
+    public int householdID;
+    public Sensor[] sensors;
     transient protected Label tempLabel;
     transient protected ObservableList<Double> internalTemps;
 
