@@ -22,6 +22,7 @@ public class DataHandler {
             .excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT)
             .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer())
             .registerTypeAdapter(Sensor.class, new SensorDeserializer())
+            .registerTypeAdapter(Receiver.class, new ReceiverDeserializer())
             .disableHtmlEscaping().create();
 
     private static ChronManager chronManager = new ChronManager();
