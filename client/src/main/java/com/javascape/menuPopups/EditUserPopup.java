@@ -26,6 +26,7 @@ public class EditUserPopup {
         GridPane g = new GridPane();
 
         ChoiceBox<User> dropdown = new ChoiceBox<User>();
+        @SuppressWarnings("unchecked")
         ObservableList<User> userList = (ObservableList<User>) DataHandler
                 .deserializeObservable(client.getThread().awaitResponse("getUserList"));
 

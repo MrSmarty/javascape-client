@@ -25,7 +25,7 @@ public class Logger {
             if (Settings.loggerTerminalOutput) {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        //ServerGUI.writeToTerminal(message);
+                        ClientGUI.writeToTerminal(message);
                     }
                 });
 
@@ -54,7 +54,7 @@ public class Logger {
             if (Settings.debugTerminalOutput)
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        //ServerGUI.writeToTerminal(message);
+                        ClientGUI.writeToTerminal(message);
                     }
                 });
         } catch (NullPointerException e) {
@@ -74,8 +74,7 @@ public class Logger {
 
             Platform.runLater(new Runnable() {
                 public void run() {
-                    //TODO: Fix these 3 things
-                    //ServerGUI.writeToTerminal(message, "#FF2222");
+                    ClientGUI.writeToTerminal(message, "#FF2222");
                 }
             });
         } catch (NullPointerException e) {

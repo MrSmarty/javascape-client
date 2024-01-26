@@ -18,6 +18,7 @@ public class DeleteChronjobPopup {
 
         GridPane g = new GridPane();
 
+        @SuppressWarnings("unchecked")
         ObservableList<Job> chronList = (ObservableList<Job>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getChronjobList"));
 
         ChoiceBox<Job> dropdown = new ChoiceBox<Job>(chronList);
@@ -27,7 +28,7 @@ public class DeleteChronjobPopup {
         Button close = new Button("Close");
 
         delete.setOnAction(e -> {
-            client.getThread().awaitResponse("deleteChronjob " + DataHandler.serializeJob(dropdown.getValue()));
+            DataHandler.getChronManager().remove(dropdown.getValue());
             stage.close();
         });
 

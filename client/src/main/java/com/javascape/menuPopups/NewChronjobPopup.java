@@ -132,7 +132,10 @@ public class NewChronjobPopup {
         Label receiverLabel = new Label("Receiver");
         ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
-        receiverBox.getItems().addAll((ObservableList<Receiver>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getReceiverList")));
+        @SuppressWarnings("unchecked")
+        ObservableList<Receiver> temp = (ObservableList<Receiver>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getReceiverList"));
+        
+        receiverBox.getItems().addAll(temp);
         receiverBox.valueProperty().set(receiverBox.getItems().get(0));
 
         g.add(setType, 0, 0);
