@@ -1,3 +1,4 @@
+com/javascape/gsonDeserializers/ReceiverDeserializer.class
 com/javascape/receivers/PicoW$3.class
 com/javascape/sensors/Sensor.class
 com/javascape/Logger$1.class
@@ -13,7 +14,9 @@ module-info.class
 com/javascape/Client.class
 com/javascape/Logger.class
 com/javascape/sensors/KeyesPhotoresistorAnalog$1.class
+com/javascape/ReceiverView.class
 com/javascape/Logger$3.class
+com/javascape/ReceiverView$1.class
 com/javascape/DataHandler.class
 com/javascape/receivers/PicoW$2.class
 com/javascape/gsonDeserializers/ObservableListDeserializer.class

@@ -82,6 +82,8 @@ public class ClientThread extends Thread {
         }
         responseRecieved = false;
 
+        Logger.debug("Response recieved: " + input);
+
         return input;
     }
 

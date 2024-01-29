@@ -29,7 +29,7 @@ public class ClientGUI {
     /** The main scene */
     BorderPane mainPane;
 
-    // static ReceiverView receiverView;
+    static ReceiverView receiverView;
 
     /** A reference to the terminal */
     static ListView<Text> terminalListView = new ListView<Text>();;
@@ -65,9 +65,9 @@ public class ClientGUI {
 
         mainPane.setLeft(sideMenu());
 
-        // receiverView = new ReceiverView();
+        receiverView = new ReceiverView(client);
 
-        // mainPane.setCenter(receiverView.getReceiverView());
+        mainPane.setCenter(receiverView.getReceiverView());
 
         if (Settings.showTerminal)
             mainPane.setBottom(getTerminalElement());

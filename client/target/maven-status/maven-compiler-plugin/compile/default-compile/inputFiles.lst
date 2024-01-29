@@ -2,10 +2,12 @@
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/chronjob/Chronjob.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/module-info.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/Settings.java
+/Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/ReceiverView.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/gsonDeserializers/ObservableListDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/ClientGUI.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/menuPopups/EditUserPopup.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/sensors/KeyesPhotoresistorAnalog.java
+/Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/gsonDeserializers/ReceiverDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/menuPopups/SettingsPopup.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/menuPopups/DeleteChronjobPopup.java
 /Users/lincoln/GTISM_2023-2024/Client/client/src/main/java/com/javascape/sensors/Sensor.java
