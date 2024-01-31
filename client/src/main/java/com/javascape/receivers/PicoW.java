@@ -1,6 +1,7 @@
 package com.javascape.receivers;
 
 import com.javascape.Logger;
+import com.javascape.Client;
 import com.javascape.ClientThread;
 //FIXME: import com.javascape.menuPopups.AddSensorPopup;
 import com.javascape.sensors.Sensor;
@@ -23,8 +24,7 @@ import javafx.scene.layout.VBox;
 
 public class PicoW extends Receiver {
 
-    transient private ClientThread thread;
-    public int[] values = new int[26];
+    transient private ClientThread thread = Client.getThread();
 
     transient private CheckBox[] checkBoxes;
 
@@ -33,11 +33,13 @@ public class PicoW extends Receiver {
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");
         sensors = new Sensor[3];
+        values = new int[26];
     }
 
     public PicoW(String uid, String name, String type) {
         super(uid, name, type);
         sensors = new Sensor[3];
+        values = new int[26];
     }
 
     public GridPane getReceiverPane() {
@@ -102,16 +104,14 @@ public class PicoW extends Receiver {
                 buttonPane.add(checkBoxes[i], 3, i + 1 - 13);
             }
 
-            if (thread == null)
-                checkBoxes[i].disableProperty().set(true);
+            checkBoxes[i].disableProperty().set(!connected);
 
             checkBoxes[i].selectedProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    Logger.print(
-                            String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
-                    sendCommand(
-                            String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
+                    //Logger.print(String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
+                    sendCommand(String.format("setPin %s %d %d", getUID(), tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
+                    
                 }
             });
         }
@@ -171,17 +171,9 @@ public class PicoW extends Receiver {
         checkBoxes[pin].selectedProperty().set(value == 1);
     }
 
-    public void setThreadInfo(ClientThread thread, long id) {
-        this.thread = thread;
-        if (thread != null)
-            Logger.print("Set the pico threadinfo | " + thread.getName());
-    }
-
     private void sendCommand(String message) {
-        if (thread == null)
-            return;
-        Logger.print("Sending Command to " + thread.getName());
-        thread.addCommand(message);
+        Logger.print("Sending Command to " + Client.getThread().getName());
+        Client.getThread().addCommand(message);
     }
 
     public void addInternalTemperatureValue(double temperature) {

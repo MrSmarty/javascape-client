@@ -93,7 +93,7 @@ public class ClientGUI {
         name.setStyle("-fx-color: #222222;");
         Button homeButton = new Button("Home");
         homeButton.setOnAction(e -> {
-            // mainPane.setCenter(receiverView.getReceiverView());
+            mainPane.setCenter(receiverView.getReceiverView());
         });
 
         // ADD PROFILE IMAGW BACK TO THE FRONT

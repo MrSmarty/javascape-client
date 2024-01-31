@@ -19,7 +19,7 @@ public class ReceiverView {
     public ReceiverView(Client client) {
         this.client = client;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(getReceiverUpdateRunnable(), 3, 10, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(getReceiverUpdateRunnable(), 3, 20, TimeUnit.SECONDS);
 
     }
 
@@ -31,17 +31,26 @@ public class ReceiverView {
 
     public void update() {
         Logger.print("Updating ReceiverView");
-        getReceiverUpdateRunnable().run();
+        Platform.runLater(getReceiverUpdateRunnable());
 
     }
 
     public Runnable getReceiverUpdateRunnable() {
         return new Runnable() {
             public void run() {
-                receiverList.clear();
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        receiverList.clear();
+                    }
+                });
                 for (Receiver r : (ObservableList<Receiver>) DataHandler
                         .deserializeObservable(client.getThread().awaitResponse("getReceiverList"))) {
-                    receiverList.add(r.getReceiverPane());
+                    Platform.runLater(new Runnable() {
+                        public void run() {
+                            receiverList.add(r.getReceiverPane());
+                        }
+                    });
+                    
                 }
             }
         };

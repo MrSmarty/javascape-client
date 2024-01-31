@@ -13,7 +13,7 @@ public class Client extends Application {
 
     //private static ClientGUI gui;
 
-    private ClientThread thread;
+    private static ClientThread thread;
 
     public static User loggedInUser;
 
@@ -48,11 +48,11 @@ public class Client extends Application {
     }
 
     public void startClientThread(ClientThread thread) {
-        this.thread = thread;
+        Client.thread = thread;
         Thread.ofVirtual().start(thread);
     }
 
-    public ClientThread getThread() {
+    public static ClientThread getThread() {
         return thread;
     
     }

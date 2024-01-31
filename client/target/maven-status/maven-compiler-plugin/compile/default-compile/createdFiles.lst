@@ -34,6 +34,7 @@ com/javascape/ClientThread.class
 com/javascape/Logger$2.class
 com/javascape/receivers/PicoW.class
 com/javascape/sensors/KeyesPhotoresistorAnalog.class
+com/javascape/ReceiverView$1$1.class
 com/javascape/receivers/PicoW$1.class
 com/javascape/sensors/CapacitiveV2.class
 com/javascape/menuPopups/DeleteChronjobPopup.class

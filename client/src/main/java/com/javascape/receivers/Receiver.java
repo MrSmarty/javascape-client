@@ -12,6 +12,11 @@ public abstract class Receiver {
     public String type;
     public int householdID;
     public Sensor[] sensors;
+    public int[] values;
+
+    /** Boolean to tell whether or not the receiver is connected */
+    public boolean connected;
+
     transient protected Label tempLabel;
     transient protected ObservableList<Double> internalTemps;
 
@@ -66,5 +71,14 @@ public abstract class Receiver {
             return 0;
         }
         return internalTemps.get(0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Receiver) {
+            Receiver r = (Receiver) o;
+            return r.uid.equals(uid);
+        }
+        return false;
     }
 }
