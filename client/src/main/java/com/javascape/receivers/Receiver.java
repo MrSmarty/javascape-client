@@ -4,7 +4,6 @@ import com.javascape.sensors.Sensor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 
 public abstract class Receiver {
     public String uid;
@@ -50,7 +49,7 @@ public abstract class Receiver {
         return getName();
     }
 
-    public abstract GridPane getReceiverPane();
+    public abstract ReceiverPane getReceiverPane();
 
     public abstract int[] getValues();
 

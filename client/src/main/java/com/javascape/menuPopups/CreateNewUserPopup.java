@@ -3,7 +3,6 @@ package com.javascape.menuPopups;
 import java.util.ArrayList;
 
 import com.javascape.Client;
-import com.javascape.ClientThread;
 import com.javascape.Permissions;
 
 import javafx.scene.Scene;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
 
 public class CreateNewUserPopup {
 
-    public CreateNewUserPopup(ClientThread thread) {
+    public CreateNewUserPopup() {
 
         Stage popupStage = new Stage();
         popupStage.setTitle("Create New User");
@@ -47,7 +46,7 @@ public class CreateNewUserPopup {
         submit.setOnAction(e -> {
             if (usernameField.textProperty().getValue() != "" && passwordField.textProperty().getValue() != ""
                     && emailField.textProperty().getValue() != "") {
-                if (thread.awaitResponse(String.format("createUser %s %s %s %s",
+                if (Client.getThread().awaitResponse(String.format("createUser %s %s %s %s",
                         usernameField.textProperty().getValue(), passwordField.textProperty().getValue(),
                         Permissions.toInt(adminDropdown.getValue()), emailField.textProperty().getValue())).equals("true")) {
 

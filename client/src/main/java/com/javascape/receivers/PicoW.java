@@ -42,10 +42,11 @@ public class PicoW extends Receiver {
         values = new int[26];
     }
 
-    public GridPane getReceiverPane() {
+    public ReceiverPane getReceiverPane() {
         if (checkBoxes == null)
             checkBoxes = new CheckBox[26];
-        GridPane g = new GridPane();
+        ReceiverPane g = new ReceiverPane(uid);
+        
         Label nameLabel = new Label(super.getName());
         TextField nameField = new TextField(super.getName());
         nameField.visibleProperty().set(false);

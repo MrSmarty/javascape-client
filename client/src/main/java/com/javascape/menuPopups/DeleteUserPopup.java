@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DeleteUserPopup {
-    public DeleteUserPopup(Client client) {
+    public DeleteUserPopup() {
 
         Stage popupStage = new Stage();
         popupStage.setTitle("Delete User");
@@ -21,7 +21,7 @@ public class DeleteUserPopup {
         GridPane g = new GridPane();
 
         @SuppressWarnings("unchecked")
-        ObservableList<User> userList = (ObservableList<User>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getUserList"));
+        ObservableList<User> userList = (ObservableList<User>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getUserList"));
         userList.remove(Client.loggedInUser);
 
         for (int i = 0; i < userList.size(); i++) {
@@ -42,7 +42,7 @@ public class DeleteUserPopup {
         Button close = new Button("Close");
 
         delete.setOnAction(e -> {
-            client.getThread().addCommand(("deleteUser " + dropdown.getValue().getEmail()));
+            Client.getThread().addCommand(("deleteUser " + dropdown.getValue().getEmail()));
             popupStage.close();
         });
 

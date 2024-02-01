@@ -10,6 +10,7 @@ com/javascape/Permissions.class
 com/javascape/chronjob/Job.class
 com/javascape/menuPopups/CreateNewUserPopup.class
 com/javascape/ClientGUI.class
+com/javascape/receivers/ReceiverPane.class
 module-info.class
 com/javascape/Client.class
 com/javascape/Logger.class

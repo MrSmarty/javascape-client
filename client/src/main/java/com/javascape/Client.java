@@ -28,7 +28,6 @@ public class Client extends Application {
         this.primaryStage = primaryStage;
 
         DataHandler.ensureStorageDirectory();
-        DataHandler.getChronManager().setClient(this);
 
         // TODO: Autologin
         login();

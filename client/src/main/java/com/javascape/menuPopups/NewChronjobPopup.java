@@ -26,10 +26,8 @@ public class NewChronjobPopup {
 
     private ChronManager manager = DataHandler.getChronManager();
 
-    private Client client;
 
-    public NewChronjobPopup(Client client) {
-        this.client = client;
+    public NewChronjobPopup() {
         Stage stage = new Stage();
         stage.setTitle("Create New Chronjob");
 
@@ -133,7 +131,7 @@ public class NewChronjobPopup {
         ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
         @SuppressWarnings("unchecked")
-        ObservableList<Receiver> temp = (ObservableList<Receiver>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getReceiverList"));
+        ObservableList<Receiver> temp = (ObservableList<Receiver>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getReceiverList"));
         
         receiverBox.getItems().addAll(temp);
         receiverBox.valueProperty().set(receiverBox.getItems().get(0));

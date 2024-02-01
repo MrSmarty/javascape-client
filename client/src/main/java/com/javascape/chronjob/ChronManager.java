@@ -9,15 +9,10 @@ public class ChronManager {
 
     transient private ArrayList<ChronjobItem> chronjobItems = new ArrayList<ChronjobItem>();
 
-    private Client client;
-
     public ChronManager() {
         loadData();
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     public void loadData() {
         chronjobItems.add(new ChronjobItem("Set pin", "to on", "setPin %1$s 1"));
@@ -28,16 +23,16 @@ public class ChronManager {
 
     public boolean newRepeating(Chronjob job) {
         return Boolean
-                .parseBoolean(client.getThread().awaitResponse("newRepeating " + DataHandler.serializeChronjob(job)));
+                .parseBoolean(Client.getThread().awaitResponse("newRepeating " + DataHandler.serializeChronjob(job)));
     }
 
     public void newConditional(ConditionalJob job) {
-        client.getThread().awaitResponse("newConditional " + DataHandler.serializeConditional(job));
+        Client.getThread().awaitResponse("newConditional " + DataHandler.serializeConditional(job));
     }
 
     public boolean remove(Job job) {
         return Boolean
-                .parseBoolean(client.getThread().awaitResponse("deleteChronjob " + DataHandler.serializeJob(job)));
+                .parseBoolean(Client.getThread().awaitResponse("deleteChronjob " + DataHandler.serializeJob(job)));
     }
 
     public ArrayList<ChronjobItem> getAllItems() {

@@ -154,15 +154,15 @@ public class ClientGUI {
         MenuItem deleteUser = new MenuItem("Delete User");
 
         createUser.setOnAction(e -> {
-            new CreateNewUserPopup(client.getThread());
+            new CreateNewUserPopup();
         });
 
         editUser.setOnAction(e -> {
-            new EditUserPopup(client);
+            new EditUserPopup();
         });
 
         deleteUser.setOnAction(e -> {
-            new DeleteUserPopup(client);
+            new DeleteUserPopup();
         });
 
         if (Client.loggedInUser.getPermissionsLevel() <= Permissions.HOUSEHOLD_HEAD)
@@ -188,7 +188,7 @@ public class ClientGUI {
         MenuItem deleteChronjob = new MenuItem("Delete Chronjob");
 
         createChronjob.setOnAction(e -> {
-            new NewChronjobPopup(client);
+            new NewChronjobPopup();
         });
 
         createConditional.setOnAction(e -> {
@@ -196,7 +196,7 @@ public class ClientGUI {
         });
 
         deleteChronjob.setOnAction(e -> {
-            new DeleteChronjobPopup(client);
+            new DeleteChronjobPopup();
         });
 
         chronjobs.getItems().addAll(createChronjob, createConditional, deleteChronjob);

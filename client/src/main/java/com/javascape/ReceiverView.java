@@ -5,26 +5,26 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.javascape.receivers.Receiver;
+import com.javascape.receivers.ReceiverPane;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
 
 public class ReceiverView {
-    ObservableList<GridPane> receiverList = FXCollections.observableArrayList();
+    ObservableList<ReceiverPane> receiverList = FXCollections.observableArrayList();
     Client client;
 
     public ReceiverView(Client client) {
         this.client = client;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(getReceiverUpdateRunnable(), 3, 20, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(getReceiverUpdateRunnable(), 2, 5, TimeUnit.SECONDS);
 
     }
 
-    public ListView<GridPane> getReceiverView() {
-        ListView<GridPane> view = new ListView<GridPane>(receiverList);
+    public ListView<ReceiverPane> getReceiverView() {
+        ListView<ReceiverPane> view = new ListView<ReceiverPane>(receiverList);
 
         return view;
     }
@@ -38,18 +38,20 @@ public class ReceiverView {
     public Runnable getReceiverUpdateRunnable() {
         return new Runnable() {
             public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        receiverList.clear();
-                    }
-                });
+
                 for (Receiver r : (ObservableList<Receiver>) DataHandler
                         .deserializeObservable(client.getThread().awaitResponse("getReceiverList"))) {
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            receiverList.add(r.getReceiverPane());
+                            if (receiverList.contains(r.getReceiverPane())) {
+                                receiverList.remove(r.getReceiverPane());
+                                receiverList.add(r.getReceiverPane());
+                            } else {
+                                receiverList.add(r.getReceiverPane());
+                            }
                         }
                     });
+                    
                     
                 }
             }

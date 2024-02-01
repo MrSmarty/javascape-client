@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class EditUserPopup {
-    public EditUserPopup(Client client) {
+    public EditUserPopup() {
 
         Stage popupStage = new Stage();
         popupStage.setTitle("Edit User");
@@ -28,7 +28,7 @@ public class EditUserPopup {
         ChoiceBox<User> dropdown = new ChoiceBox<User>();
         @SuppressWarnings("unchecked")
         ObservableList<User> userList = (ObservableList<User>) DataHandler
-                .deserializeObservable(client.getThread().awaitResponse("getUserList"));
+                .deserializeObservable(Client.getThread().awaitResponse("getUserList"));
 
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getPermissionsLevel() <= Client.loggedInUser.getPermissionsLevel()) {
@@ -66,7 +66,7 @@ public class EditUserPopup {
 
             User u = dropdown.getValue();
 
-            if (client.getThread()
+            if (Client.getThread()
                     .awaitResponse(String.format("editUser %s %s %s %s %s", u.getEmail(),
                             usernameField.textProperty().getValue(),
                             passwordField.textProperty().getValue(), Permissions.toInt(adminDropdown.getValue()),

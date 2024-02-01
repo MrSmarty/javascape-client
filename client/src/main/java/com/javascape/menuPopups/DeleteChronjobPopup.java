@@ -12,14 +12,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DeleteChronjobPopup {
-    public DeleteChronjobPopup(Client client) {
+    public DeleteChronjobPopup() {
         Stage stage = new Stage();
         stage.setTitle("Delete Chronjob");
 
         GridPane g = new GridPane();
 
         @SuppressWarnings("unchecked")
-        ObservableList<Job> chronList = (ObservableList<Job>) DataHandler.deserializeObservable(client.getThread().awaitResponse("getChronjobList"));
+        ObservableList<Job> chronList = (ObservableList<Job>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getChronjobList"));
 
         ChoiceBox<Job> dropdown = new ChoiceBox<Job>(chronList);
 
