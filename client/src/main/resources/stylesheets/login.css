@@ -1,0 +1,59 @@
+#portField {
+  -fx-max-width: 5em;
+  max-width: 5em;
+}
+
+#loginButton {
+  -fx-background-color: #337357;
+  background-color: #337357;
+
+  -fx-text-fill: #FDFFFC;
+
+  -fx-cursor: hand;
+  cursor: hand;
+
+  -fx-font-size: 12pt;
+  font-size: 12pt;
+}
+
+#loginButton:hover {
+  -fx-background-color: #236347;
+  background-color: #236347;
+}
+
+.title {
+    -fx-font-size: 20pt;
+    font-size: 20pt;
+    
+    -fx-text-fill: #0b2027;
+}
+
+.errorLabel {
+    -fx-font-size: 8pt;
+    font-size: 8pt;
+
+    -fx-text-fill: #F06449;
+}
+
+.textField {
+  /* -fx-border-color: #0b2027;
+  border-color: #0b2027; */
+
+  -fx-background-color: #edefec;
+  background-color: #edefec;
+
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+.gridPane {
+    -fx-vgap: 5px;
+    -fx-hgap: 5px;
+}
+
+.root {
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+

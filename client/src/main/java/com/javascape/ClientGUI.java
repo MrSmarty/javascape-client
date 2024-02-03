@@ -65,7 +65,7 @@ public class ClientGUI {
 
         mainPane.setLeft(sideMenu());
 
-        receiverView = new ReceiverView(client);
+        receiverView = new ReceiverView();
 
         mainPane.setCenter(receiverView.getReceiverView());
 
@@ -74,7 +74,7 @@ public class ClientGUI {
 
         Scene scene = new Scene(mainPane);
 
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         return scene;
     }

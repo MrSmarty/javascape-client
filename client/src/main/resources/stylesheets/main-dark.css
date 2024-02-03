@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "Nunito Sans 7pt";
+  src: url("Nunito_Sans/static/NunitoSans_7pt-Medium.ttf");
+}
+
+#terminal {
+  -fx-background-color: #0b2027;
+  background-color: #0b2027;
+}
+
+#terminal .list-view,
+#terminal .list-cell:even,
+#terminal .list-cell:odd {
+  -fx-background-color: #fdfffc;
+  background-color: #fdfffc;
+}
+
+#terminal .list-view .scroll-bar:vertical {
+  -fx-scale-x: 1;
+  -fx-opacity: 0.5;
+  opacity: 0.5;
+
+  -fx-color: #edefec;
+  color: #edefec;
+
+  -fx-background-color: #fdfffc;
+  background-color: #fdfffc;
+}
+
+#verticalMenu {
+  -fx-background-color: #fdfffc;
+  background-color: #fdfffc;
+
+  -fx-padding: 10px;
+  padding: 10px;
+
+  -fx-text-align: center;
+  text-align: center;
+}
+
+.root {
+  -fx-font-family: "Nunito Sans 7pt";
+  font-family: "Nunito Sans 7pt";
+
+  -fx-background-color: #0b2027;
+  background-color: #0b2027;
+
+  -fx-fill: #fdfffc;
+  fill: #fdfffc;
+}

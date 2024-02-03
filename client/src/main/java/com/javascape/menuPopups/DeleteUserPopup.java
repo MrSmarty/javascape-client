@@ -16,12 +16,11 @@ public class DeleteUserPopup {
         Stage popupStage = new Stage();
         popupStage.setTitle("Delete User");
 
-        
-
         GridPane g = new GridPane();
 
         @SuppressWarnings("unchecked")
-        ObservableList<User> userList = (ObservableList<User>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getUserList"));
+        ObservableList<User> userList = (ObservableList<User>) DataHandler
+                .deserializeObservable(Client.getThread().awaitResponse("getUserList"));
         userList.remove(Client.loggedInUser);
 
         for (int i = 0; i < userList.size(); i++) {
@@ -37,7 +36,6 @@ public class DeleteUserPopup {
 
         ChoiceBox<User> dropdown = new ChoiceBox<User>(userList);
 
-
         Button delete = new Button("Delete User");
         Button close = new Button("Close");
 
@@ -50,14 +48,12 @@ public class DeleteUserPopup {
             popupStage.close();
         });
 
-
         g.add(dropdown, 0, 0, 1, 1);
         g.add(delete, 0, 1);
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         popupStage.setScene(scene);
 

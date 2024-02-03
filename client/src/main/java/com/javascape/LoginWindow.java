@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -32,6 +33,8 @@ public class LoginWindow {
     Label emailLabel;
     TextField emailField;
 
+    Label errorLabel;
+
     Label passwordLabel;
     TextField passwordField;
 
@@ -52,40 +55,54 @@ public class LoginWindow {
      * @return The scene for the login window
      */
     private Scene setupLoginScreen() {
-        g = new GridPane();
+        VBox vbox = new VBox();
+        title = new Text("JavaScape Client");
+        title.getStyleClass().add("title");
+        vbox.getChildren().add(title);
 
-        title = new Text("JavaScape Server");
+        g = new GridPane();
+        g.getStyleClass().add("gridPane");
+        vbox.getChildren().add(g);
 
         addressLabel = new Label("IP:");
         addressField = new TextField();
+        addressField.getStyleClass().add("textField");
 
         portLabel = new Label("Port:");
         portField = new TextField("19");
+        portField.idProperty().set("portField");
+        portField.getStyleClass().add("textField");
 
         emailLabel = new Label("Email:");
         emailField = new TextField();
+        emailField.getStyleClass().add("textField");
 
         passwordLabel = new Label("Password:");
         passwordField = new TextField();
+        passwordField.getStyleClass().add("textField");
+
+        errorLabel = new Label("");
+        errorLabel.getStyleClass().add("errorLabel");
 
         loginButton = new Button("Login");
+        loginButton.idProperty().set("loginButton");
 
         loginButton.setOnAction(e -> loginButtonClicked(emailField.getText(), passwordField.getText()));
 
-        g.add(title, 0, 0);
-        g.add(addressLabel, 0, 1);
-        g.add(addressField, 1, 1);
-        g.add(portLabel, 2, 1);
-        g.add(portField, 3, 1);
-        g.add(emailLabel, 0, 2);
-        g.add(emailField, 1, 2);
-        g.add(passwordLabel, 0, 3);
-        g.add(passwordField, 1, 3);
+        g.add(addressLabel, 0, 0);
+        g.add(addressField, 1, 0);
+        g.add(portLabel, 2, 0);
+        g.add(portField, 3, 0);
+        g.add(emailLabel, 0, 1);
+        g.add(emailField, 1, 1);
+        g.add(passwordLabel, 0, 2);
+        g.add(passwordField, 1, 2);
+        g.add(errorLabel, 0, 3, 4, 1);
         g.add(loginButton, 0, 4);
 
-        Scene scene = new Scene(g, 600, 400);
+        Scene scene = new Scene(vbox, 600, 400);
 
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().addAll(getClass().getResource("/stylesheets/login.css").toExternalForm(), getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         // Allows the user to press enter to login
         scene.setOnKeyPressed(e -> {
@@ -98,6 +115,13 @@ public class LoginWindow {
 
     /** Processes the login info */
     private void loginButtonClicked(String email, String password) {
+        if (addressField.getText().equals("") || portField.getText().equals("")) {
+            errorLabel.setText("Please enter an address and port");
+            return;
+        } else if (email.equals("") || password.equals("")) {
+            errorLabel.setText("Please enter an email and password");
+            return;
+        }
         try {
             Socket socket = new Socket(addressField.getText(), Integer.parseInt(portField.getText()));
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -133,13 +157,16 @@ public class LoginWindow {
 
                 } else {
                     System.out.println("Login failed");
+                    errorLabel.setText("Invalid user credentials");
                 }
             } else {
                 System.out.println("Error logging in");
+                errorLabel.setText("Error logging in");
             }
 
         } catch (IOException e) {
             System.out.println("Error connecting to server");
+            errorLabel.setText("Error connecting to server");
         }
     }
 

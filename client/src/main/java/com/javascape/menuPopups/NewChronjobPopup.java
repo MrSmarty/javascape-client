@@ -26,7 +26,6 @@ public class NewChronjobPopup {
 
     private ChronManager manager = DataHandler.getChronManager();
 
-
     public NewChronjobPopup() {
         Stage stage = new Stage();
         stage.setTitle("Create New Chronjob");
@@ -102,7 +101,7 @@ public class NewChronjobPopup {
 
         Scene scene = new Scene(g);
         scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         stage.setScene(scene);
 
@@ -131,8 +130,9 @@ public class NewChronjobPopup {
         ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
         @SuppressWarnings("unchecked")
-        ObservableList<Receiver> temp = (ObservableList<Receiver>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getReceiverList"));
-        
+        ObservableList<Receiver> temp = (ObservableList<Receiver>) DataHandler
+                .deserializeObservable(Client.getThread().awaitResponse("getReceiverList"));
+
         receiverBox.getItems().addAll(temp);
         receiverBox.valueProperty().set(receiverBox.getItems().get(0));
 
@@ -160,7 +160,7 @@ public class NewChronjobPopup {
         g.add(cancel, 1, 3);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         stage.setScene(s);
 

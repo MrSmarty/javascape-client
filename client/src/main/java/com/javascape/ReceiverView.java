@@ -14,10 +14,8 @@ import javafx.scene.control.ListView;
 
 public class ReceiverView {
     ObservableList<ReceiverPane> receiverList = FXCollections.observableArrayList();
-    Client client;
 
-    public ReceiverView(Client client) {
-        this.client = client;
+    public ReceiverView() {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(getReceiverUpdateRunnable(), 2, 5, TimeUnit.SECONDS);
 
@@ -40,7 +38,7 @@ public class ReceiverView {
             public void run() {
 
                 for (Receiver r : (ObservableList<Receiver>) DataHandler
-                        .deserializeObservable(client.getThread().awaitResponse("getReceiverList"))) {
+                        .deserializeObservable(Client.getThread().awaitResponse("getReceiverList"))) {
                     Platform.runLater(new Runnable() {
                         public void run() {
                             if (receiverList.contains(r.getReceiverPane())) {

@@ -19,10 +19,10 @@ public class DeleteChronjobPopup {
         GridPane g = new GridPane();
 
         @SuppressWarnings("unchecked")
-        ObservableList<Job> chronList = (ObservableList<Job>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getChronjobList"));
+        ObservableList<Job> chronList = (ObservableList<Job>) DataHandler
+                .deserializeObservable(Client.getThread().awaitResponse("getChronjobList"));
 
         ChoiceBox<Job> dropdown = new ChoiceBox<Job>(chronList);
-
 
         Button delete = new Button("Delete Chronjob");
         Button close = new Button("Close");
@@ -36,13 +36,12 @@ public class DeleteChronjobPopup {
             stage.close();
         });
 
-
         g.add(dropdown, 0, 0, 1, 1);
         g.add(delete, 0, 1);
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         stage.setScene(scene);
         stage.show();

@@ -34,7 +34,7 @@ public class CreateNewUserPopup {
         Label adminLabel = new Label("Permissions Level:");
         ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
         ArrayList<String> temp = Permissions.getPermissionsList();
-        
+
         for (String s : temp) {
             if (Permissions.toInt(s) >= Client.loggedInUser.getPermissionsLevel()) {
                 adminDropdown.getItems().add(s);
@@ -48,7 +48,8 @@ public class CreateNewUserPopup {
                     && emailField.textProperty().getValue() != "") {
                 if (Client.getThread().awaitResponse(String.format("createUser %s %s %s %s",
                         usernameField.textProperty().getValue(), passwordField.textProperty().getValue(),
-                        Permissions.toInt(adminDropdown.getValue()), emailField.textProperty().getValue())).equals("true")) {
+                        Permissions.toInt(adminDropdown.getValue()), emailField.textProperty().getValue()))
+                        .equals("true")) {
 
                     popupStage.close();
                 } else {
@@ -78,7 +79,7 @@ public class CreateNewUserPopup {
         g.add(cancel, 1, 5);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         popupStage.setScene(s);
 

@@ -56,7 +56,7 @@ public class SettingsPopup {
 
         Scene scene = new Scene(g);
 
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
 
         popupStage.setScene(scene);
         popupStage.show();
