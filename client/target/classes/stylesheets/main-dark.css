@@ -1,18 +1,18 @@
 @font-face {
   font-family: "Nunito Sans 7pt";
-  src: url("Nunito_Sans/static/NunitoSans_7pt-Medium.ttf");
+    src: url("Nunito_Sans/static/NunitoSans_7pt-Medium.ttf");
 }
 
 #terminal {
-  -fx-background-color: #0b2027;
-  background-color: #0b2027;
+  -fx-background-color: #0B2027;
+  background-color: #0B2027;
 }
 
 #terminal .list-view,
 #terminal .list-cell:even,
 #terminal .list-cell:odd {
-  -fx-background-color: #fdfffc;
-  background-color: #fdfffc;
+  -fx-background-color: #0B2027;
+  background-color: #0B2027;
 }
 
 #terminal .list-view .scroll-bar:vertical {
@@ -20,16 +20,16 @@
   -fx-opacity: 0.5;
   opacity: 0.5;
 
-  -fx-color: #edefec;
-  color: #edefec;
+  -fx-color: #333333;
+  color: #333333;
 
-  -fx-background-color: #fdfffc;
-  background-color: #fdfffc;
+  -fx-background-color: #0B2027;
+  background-color: #0B2027;
 }
 
 #verticalMenu {
-  -fx-background-color: #fdfffc;
-  background-color: #fdfffc;
+  -fx-background-color: #1B3037;
+  background-color: #1B3037;
 
   -fx-padding: 10px;
   padding: 10px;
@@ -38,13 +38,19 @@
   text-align: center;
 }
 
+
 .root {
   -fx-font-family: "Nunito Sans 7pt";
-  font-family: "Nunito Sans 7pt";
+  font-family:"Nunito Sans 7pt";
 
-  -fx-background-color: #0b2027;
-  background-color: #0b2027;
+  -fx-background-color: #0B2027;
+  background-color: #0B2027;
 
-  -fx-fill: #fdfffc;
-  fill: #fdfffc;
+  -fx-fill: #FDFFFC;
+  fill: #FDFFFC;
+}
+
+.errorText {
+  -fx-fill: #FF3E41;
+  fill: #FF3E41;
 }

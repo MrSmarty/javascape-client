@@ -1,6 +1,7 @@
 package com.javascape.menuPopups;
 
 import com.javascape.Permissions;
+import com.javascape.Settings;
 
 import java.util.ArrayList;
 
@@ -104,7 +105,8 @@ public class EditUserPopup {
         g.add(cancel, 1, 5);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        scene.getStylesheets()
+                .add(getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         popupStage.setScene(scene);
         popupStage.show();

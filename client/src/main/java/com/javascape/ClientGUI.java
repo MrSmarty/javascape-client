@@ -74,7 +74,8 @@ public class ClientGUI {
 
         Scene scene = new Scene(mainPane);
 
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        scene.getStylesheets()
+                .add(getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         return scene;
     }

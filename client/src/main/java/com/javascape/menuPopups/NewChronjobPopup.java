@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import com.javascape.DataHandler;
+import com.javascape.Settings;
 import com.javascape.Client;
 import com.javascape.chronjob.Chronjob;
 import com.javascape.chronjob.ChronManager;
@@ -101,7 +102,8 @@ public class NewChronjobPopup {
 
         Scene scene = new Scene(g);
         scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        scene.getStylesheets()
+                .add(getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         stage.setScene(scene);
 
@@ -160,7 +162,7 @@ public class NewChronjobPopup {
         g.add(cancel, 1, 3);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         stage.setScene(s);
 

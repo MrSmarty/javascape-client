@@ -167,7 +167,8 @@
 
 // Scene scene = new Scene(g);
 // scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
-// scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+// scene.getStylesheets().add(getClass().getResource("/stylesheets/main-" +
+// Settings.theme +".css").toExternalForm());
 
 // stage.setScene(scene);
 
@@ -223,7 +224,8 @@
 // g.add(cancel, 1, 3);
 
 // Scene s = new Scene(g);
-// s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+// s.getStylesheets().add(getClass().getResource("/stylesheets/main-" +
+// Settings.theme +".css").toExternalForm());
 
 // stage.setScene(s);
 
@@ -279,7 +281,8 @@
 // g.add(cancel, 1, 1);
 
 // Scene s = new Scene(g);
-// s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+// s.getStylesheets().add(getClass().getResource("/stylesheets/main-" +
+// Settings.theme +".css").toExternalForm());
 
 // stage.setScene(s);
 
@@ -337,7 +340,8 @@
 // Scene s = new Scene(g);
 
 // stage.setScene(s);
-// s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+// s.getStylesheets().add(getClass().getResource("/stylesheets/main-" +
+// Settings.theme +".css").toExternalForm());
 
 // stage.show();
 

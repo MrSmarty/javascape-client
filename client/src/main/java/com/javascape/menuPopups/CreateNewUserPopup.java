@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.javascape.Client;
 import com.javascape.Permissions;
+import com.javascape.Settings;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -41,23 +42,28 @@ public class CreateNewUserPopup {
             }
         }
 
+        Label errorLabel = new Label();
+        errorLabel.getStyleClass().add("errorText");
+
         Button submit = new Button("Done");
 
         submit.setOnAction(e -> {
             if (usernameField.textProperty().getValue() != "" && passwordField.textProperty().getValue() != ""
                     && emailField.textProperty().getValue() != "") {
-                if (Client.getThread().awaitResponse(String.format("createUser %s %s %s %s",
-                        usernameField.textProperty().getValue(), passwordField.textProperty().getValue(),
-                        Permissions.toInt(adminDropdown.getValue()), emailField.textProperty().getValue()))
-                        .equals("true")) {
-
+                String response = Client.getThread()
+                        .awaitResponse(String.format("createUser %s %s %s %s", usernameField.textProperty().getValue(),
+                                passwordField.textProperty().getValue(), Permissions.toInt(adminDropdown.getValue()),
+                                emailField.textProperty().getValue()));
+                if (response.equals("true")) {
                     popupStage.close();
+                } else if (response.equals("false")) {
+                    errorLabel
+                            .setText("Error: the email " + emailField.textProperty().getValue() + " is already in use");
                 } else {
-                    // TODO: Inform user that email is in use
+                    errorLabel.setText("Error creating new user");
                 }
-
             } else {
-                // TODO: Inform the user that all field must be filled out
+                errorLabel.setText("Error: all fields must be filled out");
             }
         });
 
@@ -75,11 +81,12 @@ public class CreateNewUserPopup {
         g.add(emailField, 1, 2);
         g.add(adminLabel, 0, 3);
         g.add(adminDropdown, 1, 3);
-        g.add(submit, 0, 4);
+        g.add(errorLabel, 0, 4, 2, 1);
+        g.add(submit, 0, 5);
         g.add(cancel, 1, 5);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         popupStage.setScene(s);
 

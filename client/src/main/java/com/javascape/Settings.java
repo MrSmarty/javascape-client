@@ -44,4 +44,8 @@ public class Settings {
     public static boolean autoLogin = true;
 
     public static String loggedInEmailAuto = "admin";
+
+    public static String theme = "dark";
+
+    public static String[] themes = { "dark", "light" };
 }

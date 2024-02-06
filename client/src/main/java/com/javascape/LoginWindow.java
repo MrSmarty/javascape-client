@@ -102,7 +102,8 @@ public class LoginWindow {
 
         Scene scene = new Scene(vbox, 600, 400);
 
-        scene.getStylesheets().addAll(getClass().getResource("/stylesheets/login.css").toExternalForm(), getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        scene.getStylesheets().addAll(getClass().getResource("/stylesheets/login.css").toExternalForm(),
+                getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         // Allows the user to press enter to login
         scene.setOnKeyPressed(e -> {

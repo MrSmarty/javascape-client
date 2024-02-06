@@ -48,7 +48,8 @@
 // g.add(cancel, 2, 1);
 
 // Scene scene = new Scene(g);
-// scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+// scene.getStylesheets().add(getClass().getResource("/stylesheets/main-" +
+// Settings.theme +".css").toExternalForm());
 
 // popupStage.setScene(scene);
 // popupStage.show();

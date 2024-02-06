@@ -49,3 +49,8 @@
   -fx-fill: #0B2027;
   fill: #0B2027;
 }
+
+.errorText {
+  -fx-fill: #FF3E41;
+  fill: #FF3E41;
+}

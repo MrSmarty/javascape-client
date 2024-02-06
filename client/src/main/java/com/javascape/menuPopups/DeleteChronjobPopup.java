@@ -2,6 +2,7 @@ package com.javascape.menuPopups;
 
 import com.javascape.Client;
 import com.javascape.DataHandler;
+import com.javascape.Settings;
 import com.javascape.chronjob.Job;
 
 import javafx.collections.ObservableList;
@@ -41,7 +42,8 @@ public class DeleteChronjobPopup {
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main-light.css").toExternalForm());
+        scene.getStylesheets()
+                .add(getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());
 
         stage.setScene(scene);
         stage.show();
