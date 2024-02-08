@@ -7,7 +7,7 @@
   -fx-background-color: #337357;
   background-color: #337357;
 
-  -fx-text-fill: #FDFFFC;
+  -fx-text-fill: #fdfffc;
 
   -fx-cursor: hand;
   cursor: hand;
@@ -22,17 +22,13 @@
 }
 
 .title {
-    -fx-font-size: 20pt;
-    font-size: 20pt;
-    
-    -fx-text-fill: #0b2027;
+  -fx-font-size: 20pt;
+  font-size: 20pt;
 }
 
 .errorLabel {
-    -fx-font-size: 8pt;
-    font-size: 8pt;
-
-    -fx-text-fill: #F06449;
+  -fx-font-size: 8pt;
+  font-size: 8pt;
 }
 
 .textField {
@@ -47,13 +43,11 @@
 }
 
 .gridPane {
-    -fx-vgap: 5px;
-    -fx-hgap: 5px;
+  -fx-vgap: 5px;
+  -fx-hgap: 5px;
 }
 
 .root {
   -fx-padding: 5px;
   padding: 5px;
 }
-
-

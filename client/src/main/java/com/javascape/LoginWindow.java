@@ -57,7 +57,7 @@ public class LoginWindow {
     private Scene setupLoginScreen() {
         VBox vbox = new VBox();
         title = new Text("JavaScape Client");
-        title.getStyleClass().add("title");
+        title.getStyleClass().addAll("title", "textClass");
         vbox.getChildren().add(title);
 
         g = new GridPane();
@@ -65,24 +65,28 @@ public class LoginWindow {
         vbox.getChildren().add(g);
 
         addressLabel = new Label("IP:");
+        addressLabel.getStyleClass().add("textClass");
         addressField = new TextField();
         addressField.getStyleClass().add("textField");
 
         portLabel = new Label("Port:");
+        portLabel.getStyleClass().add("textClass");
         portField = new TextField("19");
         portField.idProperty().set("portField");
         portField.getStyleClass().add("textField");
 
         emailLabel = new Label("Email:");
+        emailLabel.getStyleClass().add("textClass");
         emailField = new TextField();
         emailField.getStyleClass().add("textField");
 
         passwordLabel = new Label("Password:");
+        passwordLabel.getStyleClass().add("textClass");
         passwordField = new TextField();
         passwordField.getStyleClass().add("textField");
 
         errorLabel = new Label("");
-        errorLabel.getStyleClass().add("errorLabel");
+        errorLabel.getStyleClass().addAll("errorLabel", "errorText");
 
         loginButton = new Button("Login");
         loginButton.idProperty().set("loginButton");

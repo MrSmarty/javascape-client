@@ -37,8 +37,9 @@ public class ReceiverView {
         return new Runnable() {
             public void run() {
 
-                for (Receiver r : (ObservableList<Receiver>) DataHandler
-                        .deserializeObservable(Client.getThread().awaitResponse("getReceiverList"))) {
+                @SuppressWarnings("unchecked")
+                ObservableList<Receiver> temp = (ObservableList<Receiver>) DataHandler.deserializeObservable(Client.getThread().awaitResponse("getReceiverList"));
+                for (Receiver r : temp) {
                     Platform.runLater(new Runnable() {
                         public void run() {
                             if (receiverList.contains(r.getReceiverPane())) {

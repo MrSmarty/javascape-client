@@ -1,6 +1,5 @@
 package com.javascape.sensors;
 
-import com.javascape.Client;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
