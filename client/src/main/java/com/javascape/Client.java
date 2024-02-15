@@ -24,6 +24,7 @@ public class Client extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Platform.setImplicitExit(true);
+        primaryStage.resizableProperty().set(false);
 
         this.primaryStage = primaryStage;
 
@@ -48,7 +49,7 @@ public class Client extends Application {
 
     public void startClientThread(ClientThread thread) {
         Client.thread = thread;
-        Thread.ofVirtual().start(thread);
+        Thread.ofVirtual().start(Client.getThread());
     }
 
     public static ClientThread getThread() {

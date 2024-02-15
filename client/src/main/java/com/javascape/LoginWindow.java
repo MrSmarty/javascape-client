@@ -47,6 +47,7 @@ public class LoginWindow {
 
         primaryStage.setTitle("JavaScape Client - " + Settings.version);
         primaryStage.setScene(setupLoginScreen());
+        primaryStage.sizeToScene();
     }
 
     /**
@@ -104,7 +105,7 @@ public class LoginWindow {
         g.add(errorLabel, 0, 3, 4, 1);
         g.add(loginButton, 0, 4);
 
-        Scene scene = new Scene(vbox, 600, 400);
+        Scene scene = new Scene(vbox);
 
         scene.getStylesheets().addAll(getClass().getResource("/stylesheets/login.css").toExternalForm(),
                 getClass().getResource("/stylesheets/main-" + Settings.theme + ".css").toExternalForm());

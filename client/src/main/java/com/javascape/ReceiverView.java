@@ -14,11 +14,11 @@ import javafx.scene.control.ListView;
 
 public class ReceiverView {
     ObservableList<ReceiverPane> receiverList = FXCollections.observableArrayList();
+    ScheduledExecutorService executor;
 
     public ReceiverView() {
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(getReceiverUpdateRunnable(), 2, 5, TimeUnit.SECONDS);
-
     }
 
     public ListView<ReceiverPane> getReceiverView() {
@@ -55,5 +55,9 @@ public class ReceiverView {
                 }
             }
         };
+    }
+
+    public void quit() {
+        executor.shutdown();
     }
 }

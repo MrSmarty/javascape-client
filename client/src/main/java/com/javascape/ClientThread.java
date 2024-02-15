@@ -87,14 +87,16 @@ public class ClientThread extends Thread {
         return input;
     }
 
-    public void quit() {
+    public boolean quit() {
         Logger.print("Closing client thread...");
         run = false;
 
         try {
             socket.close();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

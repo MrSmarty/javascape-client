@@ -37,6 +37,7 @@ public class ClientGUI {
     public ClientGUI(Stage primaryStage, Client client) {
         this.client = client;
         primaryStage = new Stage();
+        primaryStage.setResizable(true);
 
         primaryStage.setTitle("JavaScape Client - " + Settings.version);
 
@@ -141,8 +142,14 @@ public class ClientGUI {
         // #endregion
 
         quitProgram.setOnAction(e -> {
-            Logger.print("Exiting Program");
-            Platform.exit();
+            if (Client.getThread().quit()) {
+                Logger.print("Exiting Program");
+                receiverView.quit();
+                Platform.exit();
+            }
+            else {
+                Logger.error("Error quitting application");
+            }
         });
 
         file.getItems().addAll(save, settings, terminal, quitProgram);
