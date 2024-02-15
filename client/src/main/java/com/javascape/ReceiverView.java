@@ -43,8 +43,7 @@ public class ReceiverView {
                     Platform.runLater(new Runnable() {
                         public void run() {
                             if (receiverList.contains(r.getReceiverPane())) {
-                                receiverList.remove(r.getReceiverPane());
-                                receiverList.add(r.getReceiverPane());
+                                receiverList.get(receiverList.indexOf(r.getReceiverPane())).getReceiver().updateReceiver(r);
                             } else {
                                 receiverList.add(r.getReceiverPane());
                             }

@@ -45,7 +45,7 @@ public class PicoW extends Receiver {
     public ReceiverPane getReceiverPane() {
         if (checkBoxes == null)
             checkBoxes = new CheckBox[26];
-        ReceiverPane g = new ReceiverPane(uid);
+        ReceiverPane g = new ReceiverPane(uid, this);
         
         Label nameLabel = new Label(super.getName());
         TextField nameField = new TextField(super.getName());
@@ -203,6 +203,32 @@ public class PicoW extends Receiver {
 
     public Sensor[] getSensors() {
         return sensors;
+    }
+
+    @Override
+    public boolean updateReceiver(Receiver newReceiver) {
+        if (newReceiver == null) {
+            return false;
+        }
+        name = newReceiver.getName();
+        for (int i = 0; i < 26; i++) {
+            if (newReceiver.getValues()[i] != values[i]) {
+                values[i] = newReceiver.getValues()[i];
+                checkBoxes[i].selectedProperty().set(values[i] == 1);
+            }
+        }
+
+        for (int i = 0; i < sensors.length; i++) {
+            if (newReceiver.getSensors()[i] != null) {
+                if (sensors[i] == null) {
+                    sensors[i] = newReceiver.getSensors()[i];
+                } else {
+                    //sensors[i].updateSensor(newReceiver.getSensors()[i]);
+                }
+            }
+        }
+
+        return true;
     }
 
 }

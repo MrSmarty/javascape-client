@@ -65,6 +65,13 @@ public abstract class Receiver {
 
     public abstract Sensor[] getSensors();
 
+    /**
+     * Updates the values of the current receiver to reflect the new one. Used in
+     * the ReceiverView class
+     * @param newReceiver the receiver to update to
+     */
+    public abstract boolean updateReceiver(Receiver newReceiver);
+
     public double getInternalTemperatureValue() {
         if (internalTemps.size() == 0) {
             return 0;
