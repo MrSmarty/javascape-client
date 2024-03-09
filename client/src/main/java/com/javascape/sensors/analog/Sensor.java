@@ -1,7 +1,7 @@
-package com.javascape.sensors;
+package com.javascape.sensors.analog;
 
 import javafx.collections.ObservableList;
-import javafx.scene.layout.GridPane;
+import javafx.scene.Node;
 
 public abstract class Sensor {
     public String className;
@@ -41,12 +41,13 @@ public abstract class Sensor {
     public abstract Double getCurrentValueAsDouble();
 
     /**
-     * Returns the GridPane of the Sensor.
+     * Returns the Node of the Sensor.
      * Should include a delete button
+     * Can be any type of JavaFX Node, but should most likely be a Pane of some kind.
      * 
-     * @return The GridPane of the Sensor
+     * @return The Javafx Node of the Sensor
      */
-    abstract public GridPane getSensorPane();
+    abstract public Node getSensorPane();
 
     @Override
     public String toString() {

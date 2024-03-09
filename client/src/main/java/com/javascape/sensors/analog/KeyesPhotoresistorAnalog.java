@@ -1,4 +1,4 @@
-package com.javascape.sensors;
+package com.javascape.sensors.analog;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -12,21 +12,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-public class CapacitiveV2 extends Sensor {
+public class KeyesPhotoresistorAnalog extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
-    private int maxCal = 48571;
-    private int minCal = 18260;
+    public int maxCal = 49000;
+    public int minCal = 0;
 
-    public CapacitiveV2(String receiverID, int index) {
-        super(receiverID, "Capacitive V2", index);
-        className = "CapacitiveV2";
+    public KeyesPhotoresistorAnalog(String receiverID, int index) {
+        super(receiverID, "Analog photoresistor", index);
+        className = "KeyesPhotoresistorAnalog";
     }
 
-    public CapacitiveV2(String receiverID, String name, int index) {
+    public KeyesPhotoresistorAnalog(String receiverID, String name, int index) {
         super(receiverID, name, index);
-        className = "CapacitiveV2";
+        className = "KeyesPhotoresistorAnalog";
     }
 
     public void addValue(String value) {
@@ -65,14 +65,14 @@ public class CapacitiveV2 extends Sensor {
         g.add(nameLabel, 0, 0);
         g.add(nameField, 0, 0);
 
-        Label valueLabel = new Label(String.format("Moisture: %s%%", getCurrentValue()));
+        Label valueLabel = new Label(String.format("Light Level: %s%%", getCurrentValue()));
 
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         valueList.addListener((ListChangeListener.Change<? extends Double> change) -> {
             Platform.runLater(new Runnable() {
                 public void run() {
-                    valueLabel.setText(String.format("Moisture: %s%%", getCurrentValue()));
+                    valueLabel.setText(String.format("Light Level: %s%%", getCurrentValue()));
                 }
             });
         });
@@ -96,7 +96,7 @@ public class CapacitiveV2 extends Sensor {
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
+            double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             return String.format("%.2f", percent);
         }
         return "N/A";
@@ -104,7 +104,7 @@ public class CapacitiveV2 extends Sensor {
 
     public Double getCurrentValueAsDouble() {
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
+            double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             return percent;
         }
         return null;

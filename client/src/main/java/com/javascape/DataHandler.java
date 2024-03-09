@@ -8,7 +8,7 @@ import com.javascape.chronjob.ConditionalJob;
 import com.javascape.chronjob.Job;
 import com.javascape.gsonDeserializers.*;
 import com.javascape.receivers.*;
-import com.javascape.sensors.Sensor;
+import com.javascape.sensors.analog.Sensor;
 
 import javafx.collections.ObservableList;
 

@@ -1,6 +1,9 @@
 package com.javascape.receivers;
 
-import com.javascape.sensors.Sensor;
+import java.util.ArrayList;
+
+import com.javascape.sensors.analog.Sensor;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -10,8 +13,8 @@ public abstract class Receiver {
     public String name;
     public String type;
     public int householdID;
+    public GPIO gpio[];
     public Sensor[] sensors;
-    public int[] values;
 
     /** Boolean to tell whether or not the receiver is connected */
     public boolean connected;
@@ -60,6 +63,12 @@ public abstract class Receiver {
     public abstract void addSensor(Sensor sensor, int pin);
 
     public abstract void removeSensor(Sensor sensor);
+
+    public abstract ArrayList<GPIO> getDigitalSensors();
+
+    public GPIO[] getGPIO() {
+        return gpio;
+    }
 
     public abstract Sensor getSensor(int pin);
 

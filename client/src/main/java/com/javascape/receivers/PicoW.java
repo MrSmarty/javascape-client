@@ -1,13 +1,13 @@
 package com.javascape.receivers;
 
-import com.javascape.Logger;
+import com.javascape.sensors.analog.Sensor;
+
+import java.util.ArrayList;
+
 import com.javascape.Client;
 import com.javascape.ClientThread;
-//FIXME: import com.javascape.menuPopups.AddSensorPopup;
-import com.javascape.sensors.Sensor;
+
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
@@ -33,20 +33,20 @@ public class PicoW extends Receiver {
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");
         sensors = new Sensor[3];
-        values = new int[26];
+        gpio = new GPIO[26];
     }
 
     public PicoW(String uid, String name, String type) {
         super(uid, name, type);
         sensors = new Sensor[3];
-        values = new int[26];
+        gpio = new GPIO[26];
     }
 
     public ReceiverPane getReceiverPane() {
         if (checkBoxes == null)
             checkBoxes = new CheckBox[26];
         ReceiverPane g = new ReceiverPane(uid, this);
-        
+
         Label nameLabel = new Label(super.getName());
         TextField nameField = new TextField(super.getName());
         nameField.visibleProperty().set(false);
@@ -92,30 +92,18 @@ public class PicoW extends Receiver {
         GridPane buttonPane = new GridPane();
 
         for (int i = 0; i < 26; i++) {
-            int tempI = i;
-            Label l = new Label("GPIO: " + i);
-            checkBoxes[i] = new CheckBox();
+            gpio[i] = new GPIO(uid, i);
 
-            checkBoxes[i].selectedProperty().set(values[i] == 1 ? true : false);
             if (i < 13) {
-                buttonPane.add(l, 0, i + 1);
-                buttonPane.add(checkBoxes[i], 1, i + 1);
+                buttonPane.add(gpio[i].getUI(), 0, i);
             } else {
-                buttonPane.add(l, 2, i + 1 - 13);
-                buttonPane.add(checkBoxes[i], 3, i + 1 - 13);
+                buttonPane.add(gpio[i].getUI(), 1, i - 13);
             }
 
-            checkBoxes[i].disableProperty().set(!connected);
+            gpio[i].setConnectionStatus(connected);
 
-            checkBoxes[i].selectedProperty().addListener(new ChangeListener<Boolean>() {
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    //Logger.print(String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
-                    sendCommand(String.format("setPin %s %d %d", getUID(), tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
-                    
-                }
-            });
         }
+
         TitledPane gpioPane = new TitledPane("GPIO", buttonPane);
         gpioPane.expandedProperty().set(gpioExpanded);
 
@@ -131,7 +119,7 @@ public class PicoW extends Receiver {
             if (sensors[i] != null) {
                 sensorVBox.getChildren().add(sensors[i].getSensorPane());
             } else {
-                int tempI = i;
+                // int tempI = i;
                 HBox h = new HBox();
                 h.getChildren().add(new Label("ADC " + i + " is empty"));
                 Button addSensorButton = new Button("Add Sensor");
@@ -162,8 +150,9 @@ public class PicoW extends Receiver {
     }
 
     public int[] getValues() {
-        for (int i = 0; i < checkBoxes.length; i++) {
-            values[i] = checkBoxes[i].selectedProperty().getValue() == true ? 1 : 0;
+        int[] values = new int[26];
+        for (int i = 0; i < gpio.length; i++) {
+            values[i] = gpio[i].value;
         }
         return values;
     }
@@ -172,10 +161,10 @@ public class PicoW extends Receiver {
         checkBoxes[pin].selectedProperty().set(value == 1);
     }
 
-    private void sendCommand(String message) {
-        Logger.print("Sending Command to " + Client.getThread().getName());
-        Client.getThread().addCommand(message);
-    }
+    // private void sendCommand(String message) {
+    // Logger.print("Sending Command to " + Client.getThread().getName());
+    // Client.getThread().addCommand(message);
+    // }
 
     public void addInternalTemperatureValue(double temperature) {
         internalTemps.add(0, temperature);
@@ -212,9 +201,8 @@ public class PicoW extends Receiver {
         }
         name = newReceiver.getName();
         for (int i = 0; i < 26; i++) {
-            if (newReceiver.getValues()[i] != values[i]) {
-                values[i] = newReceiver.getValues()[i];
-                checkBoxes[i].selectedProperty().set(values[i] == 1);
+            if (newReceiver.getValues()[i] != gpio[i].value) {
+                gpio[i].setValue(newReceiver.getValues()[i]);
             }
         }
 
@@ -223,12 +211,25 @@ public class PicoW extends Receiver {
                 if (sensors[i] == null) {
                     sensors[i] = newReceiver.getSensors()[i];
                 } else {
-                    //sensors[i].updateSensor(newReceiver.getSensors()[i]);
+                    // sensors[i].updateSensor(newReceiver.getSensors()[i]);
                 }
             }
         }
 
         return true;
+    }
+
+    public ArrayList<GPIO> getDigitalSensors() {
+        ArrayList<GPIO> digitalSensors = new ArrayList<GPIO>();
+        System.out.println("Getting digital sensors");
+        for (GPIO g : gpio) {
+            if (g.sensor != null) {
+                digitalSensors.add(g);
+            }
+        }
+        System.out.println(digitalSensors.size());
+
+        return digitalSensors;
     }
 
 }

@@ -16,6 +16,7 @@ module com.javascape {
     exports com.javascape.receivers;
     // exports com.javascape.gsonDeserializers;
     // exports com.javascape.menuPopups;
-    exports com.javascape.sensors;
+    exports com.javascape.sensors.analog;
+    exports com.javascape.sensors.digital;
     exports com.javascape.chronjob;
 }
